@@ -1480,8 +1480,8 @@ echo -e "\nFetching files from ${Git_Clone_URL}...\n"
 
 Debug_Log2 "Getting CyberPanel code..,4"
 
-Retry_Command "git clone ${Git_Clone_URL}"
-  Check_Return "git clone ${Git_Clone_URL}"
+Retry_Command "git clone ${Git_Clone_URL} cyberpanel"
+  Check_Return "git clone ${Git_Clone_URL} cyberpanel"
 
 echo -e "\nCyberPanel source code downloaded...\n"
 
