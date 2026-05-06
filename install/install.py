@@ -581,7 +581,7 @@ class preFlightsChecks:
         command = "git clone https://github.com/angvil911/justtesting"
         preFlightsChecks.call(command, self.distro, command, command, 1, 1, os.EX_OSERR)
 
-        shutil.move('justtesting', 'CyberCP')
+        shutil.move('cyberpanel', 'CyberCP')
 
         ##
 
