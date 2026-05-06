@@ -159,7 +159,7 @@ Panel_Build="5"
 
 Branch_Name="main"
 
-if [[ $Branch_Name = v*.*.* ]] ; then
+if [[ $Branch_Name = "main" ]] || [[ $Branch_Name = v*.*.* ]] ; then
   echo -e  "\nBranch name fetched...$Branch_Name"
   log_info "Branch name fetched: $Branch_Name"
 else
