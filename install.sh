@@ -72,9 +72,9 @@ fi
 
 # Clone the repo directly instead of downloading from CDN
 echo -e "\nDownloading DevaSystem installer...\n"
-rm -rf /root/devasystem-install
-git clone https://github.com/${REPO_USER}/${REPO_NAME}.git /root/devasystem-install
-cd /root/devasystem-install
+rm -rf /root/cyberpanel
+git clone https://github.com/${REPO_USER}/${REPO_NAME}.git /root/cyberpanel
+cd /root/cyberpanel
 
 # Run the main installer script
 chmod +x cyberpanel.sh
