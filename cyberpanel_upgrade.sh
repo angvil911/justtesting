@@ -53,11 +53,11 @@ Server_OS=""
 Server_OS_Version=""
 Server_Provider='Undefined'
 
-Temp_Value=$(curl --silent --max-time 30 -4 https://cyberpanel.net/version.txt)
-Panel_Version=${Temp_Value:12:3}
-Panel_Build=${Temp_Value:25:1}
+Temp_Value='{"version":"2.3.6","build": 4}'
+Panel_Version="2.4"
+Panel_Build="5"
 
-Branch_Name="v${Panel_Version}.${Panel_Build}"
+Branch_Name="main"
 Base_Number="1.9.3"
 
 Git_User=""

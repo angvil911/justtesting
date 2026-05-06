@@ -899,7 +899,7 @@ fi
 
 source /usr/local/CyberPanel/bin/activate
 rm -rf requirements.txt
-wget -O requirements.txt https://raw.githubusercontent.com/angvil911/justtesting/1.8.0/requirments.txt
+wget -O requirements.txt https://raw.githubusercontent.com/angvil911/justtesting/main/requirments.txt
 pip install --ignore-installed -r requirements.txt
 # Install python-dotenv for loading .env file (critical for AlmaLinux 8)
 pip install python-dotenv
@@ -907,11 +907,11 @@ fi
 
 if [[ $DEV == "ON" ]] ; then
 	#install dev branch 
-	#wget https://raw.githubusercontent.com/angvil911/justtesting/$BRANCH_NAME/requirments.txt
+	#wget https://raw.githubusercontent.com/angvil911/justtesting/main/requirments.txt
 	cd /usr/local/
 	python3.6 -m venv CyberPanel
 	source /usr/local/CyberPanel/bin/activate
-	wget -O requirements.txt https://raw.githubusercontent.com/angvil911/justtesting/$BRANCH_NAME/requirments.txt
+	wget -O requirements.txt https://raw.githubusercontent.com/angvil911/justtesting/main/requirments.txt
 	pip3.6 install --ignore-installed -r requirements.txt
 	# Install python-dotenv for loading .env file (critical for AlmaLinux 8)
 	pip3.6 install python-dotenv
