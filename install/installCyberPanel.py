@@ -1049,11 +1049,19 @@ gpgcheck=1
 
         ###### FTP Groups and user settings settings
 
-        command = 'getent group ftpgroup &>/dev/null || groupadd -g 2001 ftpgroup'
-        install_utils.call(command, self.distro, command, command, 1, 1, os.EX_OSERR)
+        try:
+            import grp
+            grp.getgrnam('ftpgroup')
+        except KeyError:
+            command = 'groupadd -g 2001 ftpgroup'
+            install_utils.call(command, self.distro, command, command, 1, 1, os.EX_OSERR)
 
-        command = 'id -u ftpuser &>/dev/null || useradd -u 2001 -s /bin/false -d /bin/null -c "pureftpd user" -g ftpgroup ftpuser'
-        install_utils.call(command, self.distro, command, command, 1, 1, os.EX_OSERR)
+        try:
+            import pwd
+            pwd.getpwnam('ftpuser')
+        except KeyError:
+            command = 'useradd -u 2001 -s /bin/false -d /bin/null -c "pureftpd user" -g ftpgroup ftpuser'
+            install_utils.call(command, self.distro, command, command, 1, 1, os.EX_OSERR)
 
     def startPureFTPD(self):
         ############## Start pureftpd ######################

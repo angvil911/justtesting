@@ -422,12 +422,20 @@ class preFlightsChecks:
 
             if self.distro == ubuntu:
                 self.stdOut("Add Cyberpanel user")
-                command = 'id -u cyberpanel &>/dev/null || adduser --disabled-login --gecos "" cyberpanel'
-                preFlightsChecks.call(command, self.distro, command, command, 1, 1, os.EX_OSERR)
+                try:
+                    import pwd
+                    pwd.getpwnam('cyberpanel')
+                except KeyError:
+                    command = 'adduser --disabled-login --gecos "" cyberpanel'
+                    preFlightsChecks.call(command, self.distro, command, command, 1, 1, os.EX_OSERR)
 
             else:
-                command = "id -u cyberpanel &>/dev/null || useradd -s /bin/false cyberpanel"
-                preFlightsChecks.call(command, self.distro, command, command, 1, 1, os.EX_OSERR)
+                try:
+                    import pwd
+                    pwd.getpwnam('cyberpanel')
+                except KeyError:
+                    command = "useradd -s /bin/false cyberpanel"
+                    preFlightsChecks.call(command, self.distro, command, command, 1, 1, os.EX_OSERR)
 
             ###############################
 
