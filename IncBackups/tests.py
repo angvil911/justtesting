@@ -1,23 +1,23 @@
 import json
 import configparser
 
-CurrentContent = """[usman]
+CurrentContent = """[testsftp]
 type = sftp
-host = staging.cyberpanel.net
-user = abcds2751
-pass = s0RBbJU8EhfQ-wvFgbOVEmy3HK6y19A
+host = example.com
+user = testuser
+pass = REDACTED
 shell_type = unix
 md5sum_command = md5sum
 sha1sum_command = sha1sum
 
-[habbitest2gdrive]
+[testgdrive]
 type = drive
 client_id = ""
 client_secret = ""
 scope = drive
 root_folder_id = ""
 service_account_file = ""
-token = {"access_token":"ya29.a0Ael9sCPUpwAZpHChyBkAYrDGo5BRjkj2OV1r9KNBXdXZZrjTrjPOHxTkayEr-hfKNhsqYrvChowxQw-EgTO7JobBE7IrZpLDpdpEOTY49JOg-PagtPLU_TuqFPab356TdeC0-f2RHQ_2arU1pN92aKcgfp7CaCgYKASESARESFQF4udJhaS1_8FVFFkG-ds0yPY0APA0163","token_type":"Bearer","refresh_token":"1//09Sgboc4b9-kYCgYIARAAGAkSNgF-L9IrgxJ3jKcd0UDraNAncWDKRUNu0L5ORiaS8H_QaXv2y85p0cL3ZArEaShSxy2P_Kb0CQ"}
+token = {"access_token":"REDACTED_ACCESS_TOKEN","token_type":"Bearer","refresh_token":"REDACTED_REFRESH_TOKEN"}
 """
 
 # Read the configuration string
@@ -25,8 +25,8 @@ config = configparser.ConfigParser()
 config.read_string(CurrentContent)
 
 # Get the refresh token
-refresh_token = json.loads(config.get('habbitest2gdrive', 'token'))['refresh_token']
-old_access_token = json.loads(config.get('habbitest2gdrive', 'token'))['access_token']
+refresh_token = json.loads(config.get('testgdrive', 'token'))['refresh_token']
+old_access_token = json.loads(config.get('testgdrive', 'token'))['access_token']
 print(refresh_token)
 
 new_token ="jdskjkvnckjdfvnjknvkvdjc"

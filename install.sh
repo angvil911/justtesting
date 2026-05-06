@@ -1,5 +1,13 @@
 #!/bin/sh
 
+# DevaSystem Installer Bootstrap
+# This script detects the OS and launches the main installer
+
+REPO_USER="angvil911"
+REPO_NAME="justtesting"
+BRANCH="main"
+RAW_BASE="https://raw.githubusercontent.com/${REPO_USER}/${REPO_NAME}/${BRANCH}"
+
 OUTPUT=$(cat /etc/*release)
 if  echo $OUTPUT | grep -q "CentOS Linux 7" ; then
         echo "Checking and installing curl and wget"
@@ -58,12 +66,16 @@ yum update curl wget ca-certificates -y 1> /dev/null
 else
 
                 echo -e "\nUnable to detect your OS...\n"
-                echo -e "\nCyberPanel is supported on Ubuntu 18.04, Ubuntu 20.04 Ubuntu 22.04, AlmaLinux 8, AlmaLinux 9, AlmaLinux 10 and CloudLinux 7.x...\n"
+                echo -e "\nDevaSystem is supported on Ubuntu 18.04, Ubuntu 20.04 Ubuntu 22.04, AlmaLinux 8, AlmaLinux 9, AlmaLinux 10 and CloudLinux 7.x...\n"
                 exit 1
 fi
 
-rm -f cyberpanel.sh
-rm -f install.tar.gz
-curl --silent -o cyberpanel.sh "https://cyberpanel.sh/?dl&$SERVER_OS" 2>/dev/null
+# Clone the repo directly instead of downloading from CDN
+echo -e "\nDownloading DevaSystem installer...\n"
+rm -rf /root/devasystem-install
+git clone https://github.com/${REPO_USER}/${REPO_NAME}.git /root/devasystem-install
+cd /root/devasystem-install
+
+# Run the main installer script
 chmod +x cyberpanel.sh
 ./cyberpanel.sh $@

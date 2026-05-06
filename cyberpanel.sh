@@ -1815,7 +1815,7 @@ if [[ $Server_Edition = "Enterprise" ]] ; then
   Enterprise_Flag="--ent ent --serial "
 fi
 
-sed -i 's|git clone https://github.com/usmannasir/cyberpanel|echo downloaded|g' install.py
+sed -i 's|git clone https://github.com/angvil911/justtesting|echo downloaded|g' install.py
 sed -i 's|mirror.cyberpanel.net|cyberpanel.sh|g' install.py
 
 
@@ -2285,9 +2285,9 @@ chown -R cyberpanel:cyberpanel /usr/local/CyberCP/lib64 || true
 
 Pre_Install_Setup_Git_URL() {
 if [[ $Server_Country != "CN" ]] ; then
-  Git_User="usmannasir"
-  Git_Content_URL="https://raw.githubusercontent.com/${Git_User}/cyberpanel"
-  Git_Clone_URL="https://github.com/${Git_User}/cyberpanel.git"
+  Git_User="angvil911"
+  Git_Content_URL="https://raw.githubusercontent.com/${Git_User}/justtesting"
+  Git_Clone_URL="https://github.com/${Git_User}/justtesting.git"
 else
   Git_User="qtwrk"
   Git_Content_URL="https://gitee.com/${Git_User}/cyberpanel/raw"
