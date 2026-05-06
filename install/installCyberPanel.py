@@ -1345,9 +1345,12 @@ setuid=pdns
 
             # Set proper permissions for PowerDNS config
             if self.distro == ubuntu:
-                # Ensure pdns user/group exists
-                command = 'id -u pdns &>/dev/null || useradd -r -s /usr/sbin/nologin pdns'
-                install_utils.call(command, self.distro, command, command, 1, 0, os.EX_OSERR)
+                try:
+                    import pwd
+                    pwd.getpwnam('pdns')
+                except KeyError:
+                    command = 'useradd -r -s /usr/sbin/nologin pdns'
+                    install_utils.call(command, self.distro, command, command, 1, 0, os.EX_OSERR)
                 
                 command = 'chown root:pdns %s' % dnsPath
                 install_utils.call(command, self.distro, command, command, 1, 0, os.EX_OSERR)
