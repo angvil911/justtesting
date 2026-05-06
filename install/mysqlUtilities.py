@@ -8,7 +8,7 @@ class mysqlUtilities:
     def createDatabase(dbname, dbuser, dbpassword, publicip):
 
         try:
-            createDB = "CREATE DATABASE " + dbname
+            createDB = "CREATE DATABASE IF NOT EXISTS " + dbname
 
             try:
                 from json import loads
