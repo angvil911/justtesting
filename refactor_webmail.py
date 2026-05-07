@@ -1,4 +1,60 @@
+import re
+import os
 
+def process_webmail_html():
+    path = "c:\\Users\\HP\\Videos\\devasystem-test\\cyberpanel-stable\\webmail\\templates\\webmail\\index.html"
+    with open(path, "r", encoding="utf-8") as f:
+        content = f.read()
+
+    icon_map = {
+        'fa-envelope': 'ti-mail',
+        'fa-pen-to-square': 'ti-pencil-plus',
+        'fa-address-book': 'ti-address-book',
+        'fa-filter': 'ti-filter',
+        'fa-gear': 'ti-settings',
+        'fa-folder-plus': 'ti-folder-plus',
+        'fa-search': 'ti-search',
+        'fa-trash': 'ti-trash',
+        'fa-envelope-open': 'ti-mail-opened',
+        'fa-folder-open': 'ti-folder-open',
+        'fa-chevron-left': 'ti-chevron-left',
+        'fa-chevron-right': 'ti-chevron-right',
+        'fa-star': 'ti-star',
+        'fa-inbox': 'ti-inbox',
+        'fa-spinner': 'ti-loader',
+        'fa-spin': 'ti-spin',
+        'fa-reply': 'ti-arrow-back-up',
+        'fa-reply-all': 'ti-arrow-back-up-double',
+        'fa-share': 'ti-share',
+        'fa-paperclip': 'ti-paperclip',
+        'fa-bold': 'ti-bold',
+        'fa-italic': 'ti-italic',
+        'fa-underline': 'ti-underline',
+        'fa-list-ul': 'ti-list',
+        'fa-list-ol': 'ti-list-numbers',
+        'fa-link': 'ti-link',
+        'fa-times': 'ti-x',
+        'fa-xmark': 'ti-x',
+        'fa-paper-plane': 'ti-send',
+        'fa-floppy-disk': 'ti-device-floppy',
+        'fa-plus': 'ti-plus',
+        'fa-pencil': 'ti-pencil'
+    }
+
+    content = re.sub(r'fa\s+fa-([a-zA-Z0-9-]+)', lambda m: f"ti ti-{m.group(1)}", content)
+    
+    for old, new in icon_map.items():
+        content = content.replace(f'ti-{old[3:]}', new)
+        
+    with open(path, "w", encoding="utf-8") as f:
+        f.write(content)
+
+def process_webmail_css():
+    path = "c:\\Users\\HP\\Videos\\devasystem-test\\cyberpanel-stable\\webmail\\static\\webmail\\webmail.css"
+    if not os.path.exists(path):
+        return
+        
+    new_css = """
 /* CyberPanel Webmail Redesign */
 
 .webmail-container {
@@ -368,3 +424,9 @@
     background: var(--danger);
     color: white;
 }
+"""
+    with open(path, "w", encoding="utf-8") as f:
+        f.write(new_css)
+
+process_webmail_html()
+process_webmail_css()

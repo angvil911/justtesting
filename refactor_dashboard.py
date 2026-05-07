@@ -1,10 +1,21 @@
-{% extends "baseTemplate/index.html" %}
+import re
+
+def process_homepage():
+    path = "c:\\Users\\HP\\Videos\\devasystem-test\\cyberpanel-stable\\baseTemplate\\templates\\baseTemplate\\homePage.html"
+    with open(path, "r", encoding="utf-8") as f:
+        content = f.read()
+    
+    # We will replace everything from {% block header_scripts %} to {% endblock %}
+    # and {% block content %} to {% endblock %} with our new design.
+    # Actually, it's safer to just rewrite the file content using the existing Angular controllers.
+    
+    new_content = """{% extends "baseTemplate/index.html" %}
 {% load i18n %}
 {% block title %}{% trans "Dashboard - CyberPanel" %}{% endblock %}
 
 {% block header_scripts %}
 <style>
-    [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+    [ng\\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
         display: none !important;
     }
     
@@ -370,3 +381,8 @@
     </div>
 </div>
 {% endblock %}
+"""
+    with open(path, "w", encoding="utf-8") as f:
+        f.write(new_content)
+
+process_homepage()

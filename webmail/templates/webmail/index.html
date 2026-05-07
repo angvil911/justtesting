@@ -26,7 +26,7 @@
     <!-- Account Switcher Bar -->
     <div class="wm-account-bar" ng-show="managedAccounts.length > 1">
         <div class="wm-account-current">
-            <i class="fa fa-envelope"></i>
+            <i class="ti ti-mail"></i>
             <span>{$ currentEmail $}</span>
         </div>
         <div class="wm-account-switch">
@@ -42,7 +42,7 @@
         <!-- Column 1: Sidebar -->
         <div class="wm-sidebar">
             <button class="btn btn-primary wm-compose-btn" ng-click="composeNew()">
-                <i class="fa fa-pen-to-square"></i> {% trans "Compose" %}
+                <i class="ti ti-pencil-plus"></i> {% trans "Compose" %}
             </button>
 
             <div class="wm-folder-list">
@@ -59,20 +59,20 @@
 
             <div class="wm-sidebar-nav">
                 <a ng-click="setView('contacts')" class="wm-nav-link" ng-class="{'active': viewMode === 'contacts'}">
-                    <i class="fa fa-address-book"></i> {% trans "Contacts" %}
+                    <i class="ti ti-address-book"></i> {% trans "Contacts" %}
                 </a>
                 <a ng-click="setView('rules')" class="wm-nav-link" ng-class="{'active': viewMode === 'rules'}">
-                    <i class="fa fa-filter"></i> {% trans "Rules" %}
+                    <i class="ti ti-filter"></i> {% trans "Rules" %}
                 </a>
                 <a ng-click="setView('settings')" class="wm-nav-link" ng-class="{'active': viewMode === 'settings'}">
-                    <i class="fa fa-gear"></i> {% trans "Settings" %}
+                    <i class="ti ti-settings"></i> {% trans "Settings" %}
                 </a>
             </div>
 
             <div class="wm-sidebar-divider"></div>
             <div class="wm-sidebar-nav">
                 <a ng-click="createFolder()" class="wm-nav-link">
-                    <i class="fa fa-folder-plus"></i> {% trans "New Folder" %}
+                    <i class="ti ti-folder-plus"></i> {% trans "New Folder" %}
                 </a>
             </div>
         </div>
@@ -84,7 +84,7 @@
                 <input type="text" ng-model="searchQuery" placeholder="{% trans 'Search messages...' %}"
                        ng-keyup="$event.keyCode === 13 && searchMessages()" class="wm-search-input">
                 <button class="wm-search-btn" ng-click="searchMessages()">
-                    <i class="fa fa-search"></i>
+                    <i class="ti ti-search"></i>
                 </button>
             </div>
 
@@ -94,13 +94,13 @@
                     <input type="checkbox" ng-model="selectAll" ng-change="toggleSelectAll()">
                 </label>
                 <button class="wm-action-btn" ng-click="bulkDelete()" title="{% trans 'Delete' %}">
-                    <i class="fa fa-trash"></i>
+                    <i class="ti ti-trash"></i>
                 </button>
                 <button class="wm-action-btn" ng-click="bulkMarkRead()" title="{% trans 'Mark read' %}">
-                    <i class="fa fa-envelope-open"></i>
+                    <i class="ti ti-mail-open"></i>
                 </button>
                 <button class="wm-action-btn" ng-click="bulkMarkUnread()" title="{% trans 'Mark unread' %}">
-                    <i class="fa fa-envelope"></i>
+                    <i class="ti ti-mail"></i>
                 </button>
                 <div class="wm-move-dropdown" ng-if="showMoveDropdown">
                     <select ng-model="moveTarget" ng-change="bulkMove()"
@@ -109,14 +109,14 @@
                     </select>
                 </div>
                 <button class="wm-action-btn" ng-click="showMoveDropdown = !showMoveDropdown" title="{% trans 'Move' %}">
-                    <i class="fa fa-folder-open"></i>
+                    <i class="ti ti-folder-open"></i>
                 </button>
                 <span class="wm-page-info">{$ currentPage $} / {$ totalPages $}</span>
                 <button class="wm-action-btn" ng-click="prevPage()" ng-disabled="currentPage <= 1">
-                    <i class="fa fa-chevron-left"></i>
+                    <i class="ti ti-chevron-left"></i>
                 </button>
                 <button class="wm-action-btn" ng-click="nextPage()" ng-disabled="currentPage >= totalPages">
-                    <i class="fa fa-chevron-right"></i>
+                    <i class="ti ti-chevron-right"></i>
                 </button>
             </div>
 
@@ -136,11 +136,11 @@
                     <div class="wm-msg-date">{$ msg.date | wmDate $}</div>
                 </div>
                 <div class="wm-empty" ng-if="messages.length === 0 && !loading">
-                    <i class="fa fa-inbox"></i>
+                    <i class="ti ti-inbox"></i>
                     <p>{% trans "No messages" %}</p>
                 </div>
                 <div class="wm-loading" ng-if="loading">
-                    <i class="fa fa-spinner fa-spin"></i> {% trans "Loading..." %}
+                    <i class="ti ti-loader fa-spin"></i> {% trans "Loading..." %}
                 </div>
             </div>
         </div>
@@ -152,16 +152,16 @@
             <div ng-if="viewMode === 'read' && openMsg" class="wm-read-view">
                 <div class="wm-read-toolbar">
                     <button class="btn btn-sm btn-default" ng-click="replyTo()">
-                        <i class="fa fa-reply"></i> {% trans "Reply" %}
+                        <i class="ti ti-arrow-back-up"></i> {% trans "Reply" %}
                     </button>
                     <button class="btn btn-sm btn-default" ng-click="replyAll()">
-                        <i class="fa fa-reply-all"></i> {% trans "Reply All" %}
+                        <i class="ti ti-arrow-back-up-all"></i> {% trans "Reply All" %}
                     </button>
                     <button class="btn btn-sm btn-default" ng-click="forwardMsg()">
-                        <i class="fa fa-share"></i> {% trans "Forward" %}
+                        <i class="ti ti-share"></i> {% trans "Forward" %}
                     </button>
                     <button class="btn btn-sm btn-danger" ng-click="deleteMsg(openMsg)">
-                        <i class="fa fa-trash"></i> {% trans "Delete" %}
+                        <i class="ti ti-trash"></i> {% trans "Delete" %}
                     </button>
                 </div>
                 <div class="wm-read-header">
@@ -176,7 +176,7 @@
                 <div class="wm-attachments" ng-if="openMsg.attachments.length > 0">
                     <div class="wm-attachment" ng-repeat="att in openMsg.attachments">
                         <a ng-click="downloadAttachment(att)">
-                            <i class="fa fa-paperclip"></i> {$ att.filename $}
+                            <i class="ti ti-paperclip"></i> {$ att.filename $}
                             <span class="wm-att-size">({$ att.size | fileSize $})</span>
                         </a>
                     </div>
@@ -225,12 +225,12 @@
                     </div>
                     <!-- Rich Text Toolbar -->
                     <div class="wm-editor-toolbar">
-                        <button type="button" ng-click="execCmd('bold')" title="Bold"><i class="fa fa-bold"></i></button>
-                        <button type="button" ng-click="execCmd('italic')" title="Italic"><i class="fa fa-italic"></i></button>
-                        <button type="button" ng-click="execCmd('underline')" title="Underline"><i class="fa fa-underline"></i></button>
-                        <button type="button" ng-click="execCmd('insertUnorderedList')" title="List"><i class="fa fa-list-ul"></i></button>
-                        <button type="button" ng-click="execCmd('insertOrderedList')" title="Numbered List"><i class="fa fa-list-ol"></i></button>
-                        <button type="button" ng-click="insertLink()" title="Link"><i class="fa fa-link"></i></button>
+                        <button type="button" ng-click="execCmd('bold')" title="Bold"><i class="ti ti-bold"></i></button>
+                        <button type="button" ng-click="execCmd('italic')" title="Italic"><i class="ti ti-italic"></i></button>
+                        <button type="button" ng-click="execCmd('underline')" title="Underline"><i class="ti ti-underline"></i></button>
+                        <button type="button" ng-click="execCmd('insertUnorderedList')" title="List"><i class="ti ti-list"></i></button>
+                        <button type="button" ng-click="execCmd('insertOrderedList')" title="Numbered List"><i class="ti ti-list-numbers"></i></button>
+                        <button type="button" ng-click="insertLink()" title="Link"><i class="ti ti-link"></i></button>
                     </div>
                     <div class="wm-editor" contenteditable="true" id="wm-compose-body"
                          ng-blur="updateComposeBody()"></div>
@@ -238,24 +238,24 @@
                         <input type="file" id="wm-file-input" multiple
                                onchange="angular.element(this).scope().addFiles(this.files)">
                         <label for="wm-file-input" class="wm-attach-btn">
-                            <i class="fa fa-paperclip"></i> {% trans "Attach files" %}
+                            <i class="ti ti-paperclip"></i> {% trans "Attach files" %}
                         </label>
                         <div class="wm-file-list">
                             <span ng-repeat="f in compose.files" class="wm-file-tag">
                                 {$ f.name $} ({$ f.size | fileSize $})
-                                <i class="fa fa-times" ng-click="removeFile($index)"></i>
+                                <i class="ti ti-x" ng-click="removeFile($index)"></i>
                             </span>
                         </div>
                     </div>
                     <div class="wm-compose-actions">
                         <button type="submit" class="btn btn-primary" ng-disabled="sending">
-                            <i class="fa fa-paper-plane"></i> {% trans "Send" %}
+                            <i class="ti ti-send"></i> {% trans "Send" %}
                         </button>
                         <button type="button" class="btn btn-default" ng-click="saveDraft()">
-                            <i class="fa fa-floppy-disk"></i> {% trans "Save Draft" %}
+                            <i class="ti ti-device-floppy"></i> {% trans "Save Draft" %}
                         </button>
                         <button type="button" class="btn btn-default" ng-click="discardDraft()">
-                            <i class="fa fa-xmark"></i> {% trans "Discard" %}
+                            <i class="ti ti-x"></i> {% trans "Discard" %}
                         </button>
                     </div>
                 </form>
@@ -266,7 +266,7 @@
                 <div class="wm-section-header">
                     <h3>{% trans "Contacts" %}</h3>
                     <button class="btn btn-sm btn-primary" ng-click="newContact()">
-                        <i class="fa fa-plus"></i> {% trans "Add" %}
+                        <i class="ti ti-plus"></i> {% trans "Add" %}
                     </button>
                 </div>
                 <div class="wm-contacts-search">
@@ -281,13 +281,13 @@
                         </div>
                         <div class="wm-contact-actions">
                             <button class="wm-action-btn" ng-click="composeToContact(c)" title="{% trans 'Email' %}">
-                                <i class="fa fa-envelope"></i>
+                                <i class="ti ti-mail"></i>
                             </button>
                             <button class="wm-action-btn" ng-click="editContact(c)" title="{% trans 'Edit' %}">
-                                <i class="fa fa-pencil"></i>
+                                <i class="ti ti-pencil"></i>
                             </button>
                             <button class="wm-action-btn" ng-click="removeContact(c)" title="{% trans 'Delete' %}">
-                                <i class="fa fa-trash"></i>
+                                <i class="ti ti-trash"></i>
                             </button>
                         </div>
                     </div>
@@ -328,7 +328,7 @@
                 <div class="wm-section-header">
                     <h3>{% trans "Mail Filter Rules" %}</h3>
                     <button class="btn btn-sm btn-primary" ng-click="newRule()">
-                        <i class="fa fa-plus"></i> {% trans "Add Rule" %}
+                        <i class="ti ti-plus"></i> {% trans "Add Rule" %}
                     </button>
                 </div>
                 <div class="wm-rule-list">
@@ -341,8 +341,8 @@
                             </span>
                         </div>
                         <div class="wm-rule-actions">
-                            <button class="wm-action-btn" ng-click="editRule(rule)"><i class="fa fa-pencil"></i></button>
-                            <button class="wm-action-btn" ng-click="removeRule(rule)"><i class="fa fa-trash"></i></button>
+                            <button class="wm-action-btn" ng-click="editRule(rule)"><i class="ti ti-pencil"></i></button>
+                            <button class="wm-action-btn" ng-click="removeRule(rule)"><i class="ti ti-trash"></i></button>
                         </div>
                     </div>
                 </div>
@@ -450,7 +450,7 @@
                     </div>
                     <div class="wm-form-actions">
                         <button class="btn btn-primary" ng-click="saveSettings()">
-                            <i class="fa fa-floppy-disk"></i> {% trans "Save Settings" %}
+                            <i class="ti ti-device-floppy"></i> {% trans "Save Settings" %}
                         </button>
                     </div>
                 </div>
@@ -458,7 +458,7 @@
 
             <!-- Empty State -->
             <div ng-if="viewMode === 'list' && !openMsg" class="wm-empty-detail">
-                <i class="fa fa-envelope-open fa-3x"></i>
+                <i class="ti ti-mail-open fa-3x"></i>
                 <p>{% trans "Select a message to read" %}</p>
             </div>
 
