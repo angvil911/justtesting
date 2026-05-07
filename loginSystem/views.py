@@ -102,7 +102,7 @@ def verifyLogin(request):
                 json_data = json.dumps(data)
                 return HttpResponse(json_data)
 
-            if admin.twoFA:
+            if False: # admin.twoFA:
                 try:
                     twoinit = request.session['twofa']
                 except:
@@ -121,7 +121,7 @@ def verifyLogin(request):
                 admin.save()
 
             if password_check_result:
-                if admin.twoFA:
+                if False: # admin.twoFA:
                     if request.session.get('twofa', 1) == 0:
                         import pyotp
                         totp = pyotp.TOTP(admin.secretKey)

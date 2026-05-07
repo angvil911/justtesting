@@ -271,7 +271,7 @@ class secMiddleware:
         response['X-Frame-Options'] = "sameorigin"
         # SECURITY: Combined CSP directives into single header (was overwriting each other)
         response['Content-Security-Policy'] = (
-            "script-src 'self' https://www.jsdelivr.com; "
+            "script-src 'self' 'unsafe-inline' https://www.jsdelivr.com https://code.angularjs.org; "
             "connect-src *; "
             "font-src 'self' 'unsafe-inline' https://www.jsdelivr.com https://fonts.googleapis.com https://fonts.gstatic.com; "
             "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://www.jsdelivr.com https://cdnjs.cloudflare.com https://maxcdn.bootstrapcdn.com https://cdn.jsdelivr.net; "
