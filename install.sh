@@ -7,7 +7,7 @@ REPO_USER="angvil911"
 REPO_NAME="justtesting"
 BRANCH="main"
 RAW_BASE="https://raw.githubusercontent.com/${REPO_USER}/${REPO_NAME}/${BRANCH}"
-INSTALL_DIR="/root/cyberpanel"
+INSTALL_DIR="/tmp/cyberpanel"
 
 OUTPUT=$(cat /etc/*release)
 if  echo $OUTPUT | grep -q "CentOS Linux 7" ; then
