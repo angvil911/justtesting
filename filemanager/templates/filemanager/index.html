@@ -19,200 +19,9 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
     
     <!-- Design System -->
-    <link rel="stylesheet" href="{% static 'baseTemplate/assets/css/design-system.css' %}">
     
-    <style>
-        body {
-            background-color: var(--bg-tertiary);
-            height: 100vh;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-        }
-
-        /* Desktop App Layout */
-        .fm-header {
-            height: 60px;
-            background: var(--bg-primary);
-            border-bottom: 1px solid var(--border);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 24px;
-            flex-shrink: 0;
-            z-index: 10;
-        }
-
-        .fm-brand {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-size: 16px;
-            font-weight: 600;
-        }
-
-        .fm-brand i {
-            font-size: 24px;
-            color: var(--accent);
-        }
-
-        .fm-toolbar {
-            height: 48px;
-            background: var(--bg-primary);
-            border-bottom: 1px solid var(--border);
-            display: flex;
-            align-items: center;
-            padding: 0 24px;
-            gap: 8px;
-            overflow-x: auto;
-        }
-
-        .fm-toolbar .cp-btn {
-            height: 32px;
-            padding: 0 12px;
-        }
-
-        .fm-main {
-            display: flex;
-            flex: 1;
-            overflow: hidden;
-        }
-
-        .fm-sidebar {
-            width: 280px;
-            background: var(--bg-secondary);
-            border-right: 1px solid var(--border);
-            display: flex;
-            flex-direction: column;
-            overflow-y: auto;
-        }
-
-        .fm-content {
-            flex: 1;
-            background: var(--bg-primary);
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .fm-breadcrumb {
-            height: 40px;
-            border-bottom: 1px solid var(--border);
-            display: flex;
-            align-items: center;
-            padding: 0 24px;
-            background: var(--bg-secondary);
-            gap: 12px;
-        }
-
-        .fm-breadcrumb input {
-            flex: 1;
-            border: none;
-            background: transparent;
-            font-family: var(--font-mono);
-            font-size: 13px;
-            color: var(--text-primary);
-            outline: none;
-        }
-
-        .fm-file-grid {
-            flex: 1;
-            overflow-y: auto;
-            padding: 0;
-        }
-
-        .fm-file-table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        .fm-file-table th {
-            position: sticky;
-            top: 0;
-            background: var(--bg-primary);
-            border-bottom: 1px solid var(--border);
-            padding: 8px 16px;
-            font-size: 11px;
-            font-weight: 600;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            text-align: left;
-            z-index: 5;
-        }
-
-        .fm-file-table td {
-            padding: 10px 16px;
-            border-bottom: 1px solid var(--border);
-            font-size: 13px;
-            color: var(--text-primary);
-            cursor: pointer;
-            vertical-align: middle;
-        }
-
-        .fm-file-table tr:hover td {
-            background: var(--bg-hover);
-        }
-
-        .fm-file-icon {
-            font-size: 18px;
-            margin-right: 8px;
-            color: var(--text-muted);
-            vertical-align: middle;
-        }
-        
-        /* Tree View Styling */
-        .tree-node {
-            padding: 8px 16px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            cursor: pointer;
-            color: var(--text-secondary);
-            font-size: 13px;
-        }
-        
-        .tree-node:hover {
-            background: var(--bg-hover);
-            color: var(--text-primary);
-        }
-
-        /* Right Click Menu */
-        #rightClick {
-            background: var(--bg-primary);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-md);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            width: 220px;
-            padding: 4px 0;
-            z-index: 1000;
-        }
-        
-        #rightClick .list-group-item {
-            border: none;
-            padding: 8px 16px;
-            font-size: 13px;
-            color: var(--text-primary);
-            cursor: pointer;
-            background: transparent;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        
-        #rightClick .list-group-item:hover {
-            background: var(--bg-hover);
-            color: var(--accent);
-        }
-        
-        #rightClick .list-group-item i {
-            color: var(--text-muted);
-        }
-        
-        #rightClick a {
-            text-decoration: none;
-        }
-    </style>
+    
+    
 
     <!-- Angular JS -->
     <script src="https://code.angularjs.org/1.6.5/angular.min.js"></script>
@@ -227,50 +36,98 @@
     <script src="https://cdn.jsdelivr.net/npm/alertifyjs@1.11.0/build/alertify.min.js"></script>
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.11.0/build/css/alertify.min.css"/>
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.11.0/build/css/themes/bootstrap.min.css"/>
-</head>
 
-<body ng-app="fileManager" ng-controller="fileManagerCtrl">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        .fm-file-table td {
+            padding: 10px 16px;
+            border-bottom: 1px solid #e5e7eb;
+            font-size: 13px;
+            cursor: pointer;
+            vertical-align: middle;
+        }
+        .dark .fm-file-table td {
+            border-bottom-color: #1f2937;
+        }
+        .fm-file-table tr:hover td {
+            background-color: #f9fafb;
+        }
+        .dark .fm-file-table tr:hover td {
+            background-color: #1a1a1a;
+        }
+        .tree-node {
+            padding: 8px 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            font-size: 13px;
+        }
+        .tree-node:hover {
+            background-color: #f9fafb;
+        }
+        .dark .tree-node:hover {
+            background-color: #1a1a1a;
+        }
+    </style>
+    </head>
+
+<body class="bg-gray-50 dark:bg-black h-screen overflow-hidden flex flex-col text-gray-900 dark:text-gray-100 font-sans antialiased" ng-app="fileManager" ng-controller="fileManagerCtrl">
 
     <!-- Header -->
-    <header class="fm-header">
+    <header class="flex h-[60px] bg-white dark:bg-[#111111] border-b border-gray-200 dark:border-gray-800 items-center justify-between px-6 shrink-0 z-10">
         <a href="/websites/{{ domainName }}" class="fm-brand" style="text-decoration: none; color: inherit;">
             <i class="ti ti-folder-open"></i>
             <span>File Manager</span>
             <span class="text-muted" style="font-size: 13px; font-weight: 400; margin-left: 8px;" id="domainNameInitial">{{ domainName }}</span>
         </a>
         <div style="display: flex; gap: 8px;">
-            <button class="cp-btn cp-btn-ghost" onclick="toggleTheme()" title="Toggle dark mode">
+            <button class="h-8 px-3 inline-flex items-center gap-1.5 text-xs font-medium rounded-lg text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800 transition-colors" onclick="toggleTheme()" title="Toggle dark mode">
                 <i class="ti ti-moon" id="theme-icon"></i>
             </button>
-            <a href="/websites/{{ domainName }}" class="cp-btn cp-btn-secondary">
+            <a href="/websites/{{ domainName }}" class="h-8 px-3 inline-flex items-center gap-1.5 text-xs font-medium rounded-lg bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700 transition-colors">
                 <i class="ti ti-x"></i> Close
             </a>
         </div>
     </header>
 
     <!-- Toolbar -->
-    <div class="fm-toolbar">
-        <button ng-click="showUploadBox()" class="cp-btn cp-btn-primary"><i class="ti ti-upload"></i> Upload</button>
+    <div class="flex h-12 bg-white dark:bg-[#111111] border-b border-gray-200 dark:border-gray-800 items-center px-6 gap-2 overflow-x-auto">
+        <button ng-click="showUploadBox()" class="h-8 px-3 inline-flex items-center gap-1.5 text-xs font-medium rounded-lg bg-gray-900 text-white hover:bg-gray-800 dark:bg-white dark:text-gray-900 dark:hover:bg-gray-100 transition-colors"><i class="ti ti-upload"></i> Upload</button>
         <div style="width: 1px; height: 24px; background: var(--border); margin: 0 8px;"></div>
-        <button ng-click="showCreateFileModal()" class="cp-btn cp-btn-ghost"><i class="ti ti-file-plus"></i> New File</button>
-        <button ng-click="showCreateFolderModal()" class="cp-btn cp-btn-ghost"><i class="ti ti-folder-plus"></i> New Folder</button>
+        <button ng-click="showCreateFileModal()" class="h-8 px-3 inline-flex items-center gap-1.5 text-xs font-medium rounded-lg text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800 transition-colors"><i class="ti ti-file-plus"></i> New File</button>
+        <button ng-click="showCreateFolderModal()" class="h-8 px-3 inline-flex items-center gap-1.5 text-xs font-medium rounded-lg text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800 transition-colors"><i class="ti ti-folder-plus"></i> New Folder</button>
         <div style="width: 1px; height: 24px; background: var(--border); margin: 0 8px;"></div>
-        <button id="copyFile" ng-click="showCopyModal()" class="cp-btn cp-btn-ghost"><i class="ti ti-copy"></i> Copy</button>
-        <button id="moveFile" ng-click="showMoveModal()" class="cp-btn cp-btn-ghost"><i class="ti ti-arrows-right"></i> Move</button>
-        <button id="renameFile" ng-click="showRenameModal()" class="cp-btn cp-btn-ghost"><i class="ti ti-cursor-text"></i> Rename</button>
-        <button id="editFile" ng-click="showHTMLEditorModal(1)" class="cp-btn cp-btn-ghost"><i class="ti ti-edit"></i> Edit</button>
+        <button id="copyFile" ng-click="showCopyModal()" class="h-8 px-3 inline-flex items-center gap-1.5 text-xs font-medium rounded-lg text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800 transition-colors"><i class="ti ti-copy"></i> Copy</button>
+        <button id="moveFile" ng-click="showMoveModal()" class="h-8 px-3 inline-flex items-center gap-1.5 text-xs font-medium rounded-lg text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800 transition-colors"><i class="ti ti-arrows-right"></i> Move</button>
+        <button id="renameFile" ng-click="showRenameModal()" class="h-8 px-3 inline-flex items-center gap-1.5 text-xs font-medium rounded-lg text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800 transition-colors"><i class="ti ti-cursor-text"></i> Rename</button>
+        <button id="editFile" ng-click="showHTMLEditorModal(1)" class="h-8 px-3 inline-flex items-center gap-1.5 text-xs font-medium rounded-lg text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800 transition-colors"><i class="ti ti-edit"></i> Edit</button>
         <div style="width: 1px; height: 24px; background: var(--border); margin: 0 8px;"></div>
-        <button id="compressFile" ng-click="showCompressionModal()" class="cp-btn cp-btn-ghost"><i class="ti ti-zip"></i> Compress</button>
-        <button id="extractFile" ng-click="showExtractionModal()" class="cp-btn cp-btn-ghost"><i class="ti ti-box-padding"></i> Extract</button>
+        <button id="compressFile" ng-click="showCompressionModal()" class="h-8 px-3 inline-flex items-center gap-1.5 text-xs font-medium rounded-lg text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800 transition-colors"><i class="ti ti-zip"></i> Compress</button>
+        <button id="extractFile" ng-click="showExtractionModal()" class="h-8 px-3 inline-flex items-center gap-1.5 text-xs font-medium rounded-lg text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800 transition-colors"><i class="ti ti-box-padding"></i> Extract</button>
         <div style="width: 1px; height: 24px; background: var(--border); margin: 0 8px;"></div>
-        <button id="fixPermissions" ng-click="fixPermissions()" class="cp-btn cp-btn-ghost"><i class="ti ti-tool"></i> Permissions</button>
-        <button id="deleteFile" ng-click="showDeleteModal()" class="cp-btn cp-btn-danger cp-btn-ghost" style="margin-left: auto;"><i class="ti ti-trash"></i> Delete</button>
+        <button id="fixPermissions" ng-click="fixPermissions()" class="h-8 px-3 inline-flex items-center gap-1.5 text-xs font-medium rounded-lg text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800 transition-colors"><i class="ti ti-tool"></i> Permissions</button>
+        <button id="deleteFile" ng-click="showDeleteModal()" class="h-8 px-3 inline-flex items-center gap-1.5 text-xs font-medium rounded-lg text-red-600 hover:bg-red-50 dark:text-red-400 dark:hover:bg-red-900/20 transition-colors" style="margin-left: auto;"><i class="ti ti-trash"></i> Delete</button>
     </div>
 
     <!-- Main Content -->
-    <div class="fm-main">
+    <div class="flex flex-1 overflow-hidden">
         <!-- Sidebar Tree -->
-        <div id="treeView" class="fm-sidebar">
+        <div id="treeView" class="w-[280px] bg-gray-50 dark:bg-[#0a0a0a] border-r border-gray-200 dark:border-gray-800 flex flex-col overflow-y-auto">
             <div style="padding: 16px;">
                 <div style="font-size: 11px; font-weight: 600; color: var(--text-muted); text-transform: uppercase; margin-bottom: 12px; display: flex; align-items: center; justify-content: space-between;">
                     System Tree
@@ -288,30 +145,20 @@
         </div>
 
         <!-- File View -->
-        <div class="fm-content">
+        <div class="flex-1 bg-white dark:bg-[#111111] flex flex-col overflow-hidden relative">
             <!-- Breadcrumb -->
-            <div class="fm-breadcrumb">
+            <div class="flex h-10 border-b border-gray-200 dark:border-gray-800 items-center px-6 bg-gray-50 dark:bg-[#0a0a0a] gap-3">
                 <i class="ti ti-home" ng-click="fetchForTableSecondary($event,'homeFetch')" style="cursor: pointer; color: var(--text-muted);"></i>
                 <i class="ti ti-chevron-left" ng-click="fetchForTableSecondary($event,'goBackOnPath')" style="cursor: pointer; color: var(--text-muted);"></i>
                 <i class="ti ti-refresh" ng-click="fetchForTableSecondary($event,'refresh')" style="cursor: pointer; color: var(--text-muted);"></i>
                 <div style="width: 1px; height: 20px; background: var(--border); margin: 0 8px;"></div>
-                <input type="text" id="currentPath" ng-model="currentPath" readonly>
+                <input type="text" id="currentPath" ng-model="currentPath" readonly class="flex-1 border-none bg-transparent font-mono text-[13px] text-gray-900 dark:text-gray-100 outline-none w-full">
             </div>
 
             <!-- Grid/Table -->
-            <div class="fm-file-grid">
-                <table class="fm-file-table">
-                    <thead id="tableHead">
-                        <tr>
-                            <th style="width: 40px;">
-                                <input type="checkbox" id="selectAllCheckbox" onchange="toggleSelectAll(this)">
-                            </th>
-                            <th>{% trans "File Name" %}</th>
-                            <th>{% trans "Size" %}</th>
-                            <th>{% trans "Last Modified" %}</th>
-                            <th>{% trans "Permissions" %}</th>
-                        </tr>
-                    </thead>
+            <div class="flex-1 overflow-y-auto p-0">
+                <table class="w-full border-collapse text-left">
+                    <thead id="tableHead"><tr class="sticky top-0 bg-white dark:bg-[#111111] border-b border-gray-200 dark:border-gray-800 z-5"><th class="px-4 py-2 w-10"><input type="checkbox" id="selectAllCheckbox" onchange="toggleSelectAll(this)"></th><th class="px-4 py-2 text-[11px] font-semibold text-gray-500 uppercase tracking-wider">File Name</th><th class="px-4 py-2 text-[11px] font-semibold text-gray-500 uppercase tracking-wider">Size</th><th class="px-4 py-2 text-[11px] font-semibold text-gray-500 uppercase tracking-wider">Last Modified</th><th class="px-4 py-2 text-[11px] font-semibold text-gray-500 uppercase tracking-wider">Permissions</th></tr></thead>
                     <tbody id="tableBodyFiles">
                         <!-- Filled via fileManager.js jQuery -->
                     </tbody>
@@ -914,7 +761,13 @@
         function toggleTheme() {
             const currentTheme = document.documentElement.getAttribute('data-theme');
             const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            document.documentElement.setAttribute('data-theme', newTheme);
+            
+        if (newTheme === 'dark') {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+        
             localStorage.setItem('cyberPanelTheme', newTheme);
             const icon = document.getElementById('theme-icon');
             icon.className = newTheme === 'dark' ? 'ti ti-sun' : 'ti ti-moon';

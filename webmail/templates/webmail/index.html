@@ -4,9 +4,45 @@
 {% block title %}{% trans "Webmail - CyberPanel" %}{% endblock %}
 {% block content %}
 
-<link rel="stylesheet" href="{% static 'webmail/webmail.css' %}">
+    <style>
+        .wm-folder-item.active {
+            background-color: rgba(0,0,0,0.05);
+            color: #111827;
+            font-weight: 500;
+        }
+        .dark .wm-folder-item.active {
+            background-color: rgba(255,255,255,0.05);
+            color: #ffffff;
+        }
+        .wm-nav-link.active {
+            background-color: rgba(0,0,0,0.05);
+            color: #111827;
+        }
+        .dark .wm-nav-link.active {
+            background-color: rgba(255,255,255,0.05);
+            color: #ffffff;
+        }
+        .wm-msg-row {
+            padding: 16px;
+            border-bottom: 1px solid #e5e7eb;
+            cursor: pointer;
+            position: relative;
+        }
+        .dark .wm-msg-row {
+            border-bottom-color: #1f2937;
+        }
+        .wm-msg-row:hover { background-color: #f9fafb; }
+        .dark .wm-msg-row:hover { background-color: #1a1a1a; }
+        .wm-msg-row.unread { background-color: #f3f4f6; }
+        .dark .wm-msg-row.unread { background-color: #111827; }
+        .wm-msg-row.selected { background-color: #eef2ff; }
+        .dark .wm-msg-row.selected { background-color: rgba(79, 70, 229, 0.1); }
+    </style>
+    
 
-<div class="webmail-container" ng-controller="webmailCtrl" ng-init="init()">
+
+
+<div class="h-[calc(100vh-120px)] flex flex-col bg-white dark:bg-[#111111] border border-gray-200 dark:border-gray-800 rounded-2xl overflow-hidden" ng-controller="webmailCtrl" ng-init="init()">
 
     <div id="cybermailBanner" style="display:none;flex-shrink:0;">
       <div style="padding:10px 20px;display:flex;align-items:center;gap:14px;background:linear-gradient(135deg,#4f46e5 0%,#7c3aed 50%,#9333ea 100%);">
@@ -24,82 +60,82 @@
     </script>
 
     <!-- Account Switcher Bar -->
-    <div class="wm-account-bar" ng-show="managedAccounts.length > 1">
-        <div class="wm-account-current">
+    <div class="flex items-center justify-between p-3 px-6 bg-gray-50 dark:bg-[#0a0a0a] border-b border-gray-200 dark:border-gray-800" ng-show="managedAccounts.length > 1">
+        <div class="flex items-center gap-2 font-medium text-gray-900 dark:text-white">
             <i class="ti ti-mail"></i>
             <span>{$ currentEmail $}</span>
         </div>
         <div class="wm-account-switch">
             <select ng-model="currentEmail" ng-change="switchAccount()"
-                    ng-options="a for a in managedAccounts" class="wm-account-select">
+                    ng-options="a for a in managedAccounts" class="px-3 py-1.5 border border-gray-200 dark:border-gray-800 rounded-lg bg-white dark:bg-[#111111] text-gray-900 dark:text-white outline-none">
             </select>
         </div>
     </div>
 
     <!-- Main Layout -->
-    <div class="wm-layout">
+    <div class="flex flex-1 overflow-hidden">
 
         <!-- Column 1: Sidebar -->
-        <div class="wm-sidebar">
-            <button class="btn btn-primary wm-compose-btn" ng-click="composeNew()">
+        <div class="w-60 bg-gray-50 dark:bg-[#0a0a0a] border-r border-gray-200 dark:border-gray-800 flex flex-col py-6 shrink-0">
+            <button class="mx-6 mb-6 h-10 flex items-center justify-center gap-2 bg-gray-900 dark:bg-white text-white dark:text-gray-900 font-medium rounded-xl hover:opacity-90 transition-opacity" ng-click="composeNew()">
                 <i class="ti ti-pencil-plus"></i> {% trans "Compose" %}
             </button>
 
-            <div class="wm-folder-list">
-                <div class="wm-folder-item" ng-repeat="folder in folders"
+            <div class="flex-1 overflow-y-auto px-3">
+                <div class=" flex items-center p-2 mb-1 rounded-lg cursor-pointer text-gray-600 dark:text-gray-400 hover:bg-gray-200/50 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors" ng-repeat="folder in folders"
                      ng-class="{'active': currentFolder === folder.name}"
                      ng-click="selectFolder(folder.name)">
                     <i class="fa" ng-class="getFolderIcon(folder)"></i>
-                    <span class="wm-folder-name">{$ folder.display_name || folder.name $}</span>
-                    <span class="wm-badge" ng-if="folder.unread_count > 0">{$ folder.unread_count $}</span>
+                    <span class="flex-1 ml-3">{$ folder.display_name || folder.name $}</span>
+                    <span class="bg-indigo-600 text-white text-[10px] px-1.5 py-0.5 rounded-full font-bold" ng-if="folder.unread_count > 0">{$ folder.unread_count $}</span>
                 </div>
             </div>
 
-            <div class="wm-sidebar-divider"></div>
+            <div class="h-px bg-gray-200 dark:bg-gray-800 my-4 mx-6"></div>
 
-            <div class="wm-sidebar-nav">
-                <a ng-click="setView('contacts')" class="wm-nav-link" ng-class="{'active': viewMode === 'contacts'}">
+            <div class="px-3">
+                <a ng-click="setView('contacts')" class=" flex items-center p-2 mb-1 rounded-lg cursor-pointer text-gray-600 dark:text-gray-400 hover:bg-gray-200/50 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors" ng-class="{'active': viewMode === 'contacts'}">
                     <i class="ti ti-address-book"></i> {% trans "Contacts" %}
                 </a>
-                <a ng-click="setView('rules')" class="wm-nav-link" ng-class="{'active': viewMode === 'rules'}">
+                <a ng-click="setView('rules')" class=" flex items-center p-2 mb-1 rounded-lg cursor-pointer text-gray-600 dark:text-gray-400 hover:bg-gray-200/50 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors" ng-class="{'active': viewMode === 'rules'}">
                     <i class="ti ti-filter"></i> {% trans "Rules" %}
                 </a>
-                <a ng-click="setView('settings')" class="wm-nav-link" ng-class="{'active': viewMode === 'settings'}">
+                <a ng-click="setView('settings')" class=" flex items-center p-2 mb-1 rounded-lg cursor-pointer text-gray-600 dark:text-gray-400 hover:bg-gray-200/50 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors" ng-class="{'active': viewMode === 'settings'}">
                     <i class="ti ti-settings"></i> {% trans "Settings" %}
                 </a>
             </div>
 
-            <div class="wm-sidebar-divider"></div>
-            <div class="wm-sidebar-nav">
-                <a ng-click="createFolder()" class="wm-nav-link">
+            <div class="h-px bg-gray-200 dark:bg-gray-800 my-4 mx-6"></div>
+            <div class="px-3">
+                <a ng-click="createFolder()" class=" flex items-center p-2 mb-1 rounded-lg cursor-pointer text-gray-600 dark:text-gray-400 hover:bg-gray-200/50 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors">
                     <i class="ti ti-folder-plus"></i> {% trans "New Folder" %}
                 </a>
             </div>
         </div>
 
         <!-- Column 2: Message List -->
-        <div class="wm-message-list" ng-show="viewMode === 'list' || viewMode === 'read'">
+        <div class="w-[340px] border-r border-gray-200 dark:border-gray-800 flex flex-col bg-white dark:bg-[#111111] shrink-0" ng-show="viewMode === 'list' || viewMode === 'read'">
             <!-- Search Bar -->
-            <div class="wm-search-bar">
+            <div class="p-4 border-b border-gray-200 dark:border-gray-800 flex gap-2">
                 <input type="text" ng-model="searchQuery" placeholder="{% trans 'Search messages...' %}"
-                       ng-keyup="$event.keyCode === 13 && searchMessages()" class="wm-search-input">
-                <button class="wm-search-btn" ng-click="searchMessages()">
+                       ng-keyup="$event.keyCode === 13 && searchMessages()" class="flex-1 px-3 py-2 border border-gray-200 dark:border-gray-800 rounded-lg bg-gray-50 dark:bg-[#1a1a1a] text-gray-900 dark:text-white outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 text-sm">
+                <button class="w-9 h-9 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white flex items-center justify-center transition-colors" ng-click="searchMessages()">
                     <i class="ti ti-search"></i>
                 </button>
             </div>
 
             <!-- Bulk Actions -->
-            <div class="wm-bulk-actions">
+            <div class="flex items-center px-4 py-2 border-b border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-[#0a0a0a] gap-2 shrink-0">
                 <label class="wm-checkbox-label">
                     <input type="checkbox" ng-model="selectAll" ng-change="toggleSelectAll()">
                 </label>
-                <button class="wm-action-btn" ng-click="bulkDelete()" title="{% trans 'Delete' %}">
+                <button class="w-7 h-7 rounded bg-transparent text-gray-500 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-white flex items-center justify-center transition-colors" ng-click="bulkDelete()" title="{% trans 'Delete' %}">
                     <i class="ti ti-trash"></i>
                 </button>
-                <button class="wm-action-btn" ng-click="bulkMarkRead()" title="{% trans 'Mark read' %}">
+                <button class="w-7 h-7 rounded bg-transparent text-gray-500 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-white flex items-center justify-center transition-colors" ng-click="bulkMarkRead()" title="{% trans 'Mark read' %}">
                     <i class="ti ti-mail-open"></i>
                 </button>
-                <button class="wm-action-btn" ng-click="bulkMarkUnread()" title="{% trans 'Mark unread' %}">
+                <button class="w-7 h-7 rounded bg-transparent text-gray-500 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-white flex items-center justify-center transition-colors" ng-click="bulkMarkUnread()" title="{% trans 'Mark unread' %}">
                     <i class="ti ti-mail"></i>
                 </button>
                 <div class="wm-move-dropdown" ng-if="showMoveDropdown">
@@ -108,20 +144,20 @@
                         <option value="">{% trans "Move to..." %}</option>
                     </select>
                 </div>
-                <button class="wm-action-btn" ng-click="showMoveDropdown = !showMoveDropdown" title="{% trans 'Move' %}">
+                <button class="w-7 h-7 rounded bg-transparent text-gray-500 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-white flex items-center justify-center transition-colors" ng-click="showMoveDropdown = !showMoveDropdown" title="{% trans 'Move' %}">
                     <i class="ti ti-folder-open"></i>
                 </button>
-                <span class="wm-page-info">{$ currentPage $} / {$ totalPages $}</span>
-                <button class="wm-action-btn" ng-click="prevPage()" ng-disabled="currentPage <= 1">
+                <span class="ml-auto text-[11px] text-gray-500">{$ currentPage $} / {$ totalPages $}</span>
+                <button class="w-7 h-7 rounded bg-transparent text-gray-500 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-white flex items-center justify-center transition-colors" ng-click="prevPage()" ng-disabled="currentPage <= 1">
                     <i class="ti ti-chevron-left"></i>
                 </button>
-                <button class="wm-action-btn" ng-click="nextPage()" ng-disabled="currentPage >= totalPages">
+                <button class="w-7 h-7 rounded bg-transparent text-gray-500 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-white flex items-center justify-center transition-colors" ng-click="nextPage()" ng-disabled="currentPage >= totalPages">
                     <i class="ti ti-chevron-right"></i>
                 </button>
             </div>
 
             <!-- Message Rows -->
-            <div class="wm-messages">
+            <div class="flex-1 overflow-y-auto">
                 <div class="wm-msg-row" ng-repeat="msg in messages"
                      ng-class="{'unread': !msg.is_read, 'flagged': msg.is_flagged, 'selected': msg.selected}"
                      ng-click="openMessage(msg)">
@@ -131,9 +167,9 @@
                     <button class="wm-star-btn" ng-click="toggleFlag(msg); $event.stopPropagation()">
                         <i class="fa" ng-class="msg.is_flagged ? 'fa-star wm-starred' : 'fa-star wm-unstarred'"></i>
                     </button>
-                    <div class="wm-msg-from">{$ msg.from | limitTo:30 $}</div>
-                    <div class="wm-msg-subject">{$ msg.subject | limitTo:60 $}</div>
-                    <div class="wm-msg-date">{$ msg.date | wmDate $}</div>
+                    <div class="text-[13px] text-gray-900 dark:text-white font-medium mb-1 pr-14 truncate">{$ msg.from | limitTo:30 $}</div>
+                    <div class="text-xs text-gray-500 dark:text-gray-400 truncate">{$ msg.subject | limitTo:60 $}</div>
+                    <div class="absolute top-4 right-4 text-[11px] text-gray-400">{$ msg.date | wmDate $}</div>
                 </div>
                 <div class="wm-empty" ng-if="messages.length === 0 && !loading">
                     <i class="ti ti-inbox"></i>
@@ -146,11 +182,11 @@
         </div>
 
         <!-- Column 3: Detail Pane -->
-        <div class="wm-detail-pane">
+        <div class="flex-1 flex flex-col bg-white dark:bg-[#111111] overflow-y-auto">
 
             <!-- Message Read View -->
-            <div ng-if="viewMode === 'read' && openMsg" class="wm-read-view">
-                <div class="wm-read-toolbar">
+            <div ng-if="viewMode === 'read' && openMsg" class="flex flex-col h-full">
+                <div class="px-6 py-4 border-b border-gray-200 dark:border-gray-800 flex gap-2 shrink-0">
                     <button class="btn btn-sm btn-default" ng-click="replyTo()">
                         <i class="ti ti-arrow-back-up"></i> {% trans "Reply" %}
                     </button>
@@ -164,9 +200,9 @@
                         <i class="ti ti-trash"></i> {% trans "Delete" %}
                     </button>
                 </div>
-                <div class="wm-read-header">
-                    <h3 class="wm-read-subject">{$ openMsg.subject $}</h3>
-                    <div class="wm-read-meta">
+                <div class="p-6 border-b border-gray-200 dark:border-gray-800 shrink-0">
+                    <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">{$ openMsg.subject $}</h3>
+                    <div class="text-[13px] text-gray-600 dark:text-gray-400 space-y-1">
                         <div><strong>{% trans "From" %}:</strong> {$ openMsg.from $}</div>
                         <div><strong>{% trans "To" %}:</strong> {$ openMsg.to $}</div>
                         <div ng-if="openMsg.cc"><strong>{% trans "Cc" %}:</strong> {$ openMsg.cc $}</div>
@@ -181,7 +217,7 @@
                         </a>
                     </div>
                 </div>
-                <div class="wm-read-body" ng-bind-html="trustedBody"></div>
+                <div class="p-6 flex-1 text-sm text-gray-800 dark:text-gray-200 leading-relaxed overflow-y-auto" ng-bind-html="trustedBody"></div>
             </div>
 
             <!-- Compose View -->
@@ -280,13 +316,13 @@
                             <div class="wm-contact-email">{$ c.email_address $}</div>
                         </div>
                         <div class="wm-contact-actions">
-                            <button class="wm-action-btn" ng-click="composeToContact(c)" title="{% trans 'Email' %}">
+                            <button class="w-7 h-7 rounded bg-transparent text-gray-500 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-white flex items-center justify-center transition-colors" ng-click="composeToContact(c)" title="{% trans 'Email' %}">
                                 <i class="ti ti-mail"></i>
                             </button>
-                            <button class="wm-action-btn" ng-click="editContact(c)" title="{% trans 'Edit' %}">
+                            <button class="w-7 h-7 rounded bg-transparent text-gray-500 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-white flex items-center justify-center transition-colors" ng-click="editContact(c)" title="{% trans 'Edit' %}">
                                 <i class="ti ti-pencil"></i>
                             </button>
-                            <button class="wm-action-btn" ng-click="removeContact(c)" title="{% trans 'Delete' %}">
+                            <button class="w-7 h-7 rounded bg-transparent text-gray-500 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-white flex items-center justify-center transition-colors" ng-click="removeContact(c)" title="{% trans 'Delete' %}">
                                 <i class="ti ti-trash"></i>
                             </button>
                         </div>
@@ -341,8 +377,8 @@
                             </span>
                         </div>
                         <div class="wm-rule-actions">
-                            <button class="wm-action-btn" ng-click="editRule(rule)"><i class="ti ti-pencil"></i></button>
-                            <button class="wm-action-btn" ng-click="removeRule(rule)"><i class="ti ti-trash"></i></button>
+                            <button class="w-7 h-7 rounded bg-transparent text-gray-500 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-white flex items-center justify-center transition-colors" ng-click="editRule(rule)"><i class="ti ti-pencil"></i></button>
+                            <button class="w-7 h-7 rounded bg-transparent text-gray-500 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-white flex items-center justify-center transition-colors" ng-click="removeRule(rule)"><i class="ti ti-trash"></i></button>
                         </div>
                     </div>
                 </div>
@@ -457,7 +493,7 @@
             </div>
 
             <!-- Empty State -->
-            <div ng-if="viewMode === 'list' && !openMsg" class="wm-empty-detail">
+            <div ng-if="viewMode === 'list' && !openMsg" class="flex flex-col items-center justify-center h-full text-gray-400">
                 <i class="ti ti-mail-open fa-3x"></i>
                 <p>{% trans "Select a message to read" %}</p>
             </div>

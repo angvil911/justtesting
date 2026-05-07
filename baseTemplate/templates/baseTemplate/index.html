@@ -32,8 +32,8 @@
     
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
-    <link rel="stylesheet" href="{% static 'baseTemplate/assets/css/design-system.css' %}?v={{ CP_VERSION }}">
-    <link rel="stylesheet" href="{% static 'baseTemplate/assets/css/layout.css' %}?v={{ CP_VERSION }}">
+    
+    
     
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -54,12 +54,27 @@
             document.documentElement.setAttribute('data-theme', theme);
         })();
     </script>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
     </head>
-<body class="cp-layout">
-    <div class="cp-main-wrapper">
+<body class="flex h-screen bg-gray-50 dark:bg-[#0a0a0a] overflow-hidden transition-colors duration-200 antialiased font-sans text-gray-900 dark:text-gray-100">
+    <div class="flex-1 flex flex-col min-w-0 overflow-hidden">
     <!-- Header -->
-    <div id="header" class="cp-topbar">
-        <button id="mobile-menu-toggle" class="cp-mobile-toggle" onclick="toggleSidebar()">
+    <div id="header" class="h-[68px] bg-white/80 dark:bg-[#111111]/80 backdrop-blur-md border-b border-gray-200 dark:border-gray-800 flex items-center justify-between px-6 shrink-0 z-10">
+        <button id="mobile-menu-toggle" class="md:hidden text-gray-500 hover:text-gray-900 dark:hover:text-white" onclick="toggleSidebar()">
             <i class="ti ti-menu-2"></i>
         </button>
         <div class="logo">
@@ -72,7 +87,7 @@
             </div>
         </div>
         
-        <div id="header-right" class="cp-topbar-right">
+        <div id="header-right" class="flex items-center gap-4">
             <div class="info-text">Connect with us — Watch tutorials, <a href="https://community.cyberpanel.net/" target="_blank" rel="noopener" style="color: inherit; text-decoration: underline;">Join discussions</a>, and <a href="https://platform.cyberpersons.com/" target="_blank" rel="noopener" style="color: inherit; text-decoration: underline;">get support</a>.</div>
             <div class="social-links">
                 <a href="https://web.facebook.com/groups/cyberpanel" target="_blank" rel="noopener" title="Facebook">
@@ -96,8 +111,8 @@
     </div>
     
     <!-- Sidebar -->
-    <div id="sidebar" class="cp-sidebar">
-        <div class="cp-sidebar-header">
+    <div id="sidebar" class="w-[260px] h-full bg-white dark:bg-[#111111] border-r border-gray-200 dark:border-gray-800 flex flex-col shrink-0 transition-transform duration-300 z-20 overflow-y-auto">
+        <div class="h-[68px] flex items-center justify-center border-b border-gray-200 dark:border-gray-800 shrink-0 sticky top-0 bg-white dark:bg-[#111111] z-10">
             <div class="logo-icon">
                 <img src="https://cyberpanel.net/wp-content/uploads/2025/04/cyberpanel-logo-icon_only.png" alt="CyberPanel Logo">
             </div>
@@ -107,7 +122,7 @@
             </div>
         </div>
         
-        <div class="cp-sidebar-section-label">OVERVIEW</div>
+        <div class="text-[11px] font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wider mt-6 mb-2 px-6">OVERVIEW</div>
         
         <div class="server-info" ng-controller="systemStatusInfo" ng-init="getSystemStatus()">
             <div class="server-icon">
@@ -129,87 +144,87 @@
             </div>
         </div>
         
-        <a href="{% url 'index' %}" class="cp-sidebar-item {% if request.resolver_match.url_name == 'index' %}active{% endif %}">
+        <a href="{% url 'index' %}" class=" {% if request.resolver_match.url_name == 'index' %}active{% endif %} flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">
             <div class="icon">
                 <i class="ti ti-layout-dashboard"></i>
             </div>
             <span>Dashboard</span>
         </a>
         {% if admin %}
-        <a href="{% url 'versionManagment' %}" class="cp-sidebar-item">
+        <a href="{% url 'versionManagment' %}" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">
             <div class="icon">
                 <i class="ti ti-git-branch"></i>
             </div>
             <span>Version Management</span>
         </a>
-        <a href="{% url 'design' %}" class="cp-sidebar-item">
+        <a href="{% url 'design' %}" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">
             <div class="icon">
                 <i class="ti ti-palette"></i>
             </div>
             <span>Design</span>
         </a>
         {% endif %}
-        <a href="https://platform.cyberpersons.com/" class="cp-sidebar-item" target="_blank" rel="noopener">
+        <a href="https://platform.cyberpersons.com/" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer" target="_blank" rel="noopener">
             <div class="icon">
                 <i class="ti ti-link"></i>
             </div>
             <span>Connect</span>
         </a>
-        <a href="https://cyberpanel.net/KnowledgeBase/" class="cp-sidebar-item" target="_blank" rel="noopener">
+        <a href="https://cyberpanel.net/KnowledgeBase/" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer" target="_blank" rel="noopener">
             <div class="icon">
                 <i class="ti ti-messages"></i>
             </div>
             <span>Community</span>
         </a>
         
-        <div class="cp-sidebar-section-label">MAIN</div>
+        <div class="text-[11px] font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wider mt-6 mb-2 px-6">MAIN</div>
             
-        <a href="#" class="cp-sidebar-item" onclick="toggleSubmenu('users-submenu', this); return false;">
+        <a href="#" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer" onclick="toggleSubmenu('users-submenu', this); return false;">
             <div class="icon">
                 <i class="ti ti-users"></i>
             </div>
             <span>Users</span>
             <i class="ti ti-chevron-right chevron"></i>
         </a>
-        <div id="users-submenu" class="cp-sidebar-submenu">
-                <a href="{% url 'viewProfile' %}" class="cp-sidebar-item">
+        <div id="users-submenu" class=" pl-11 pr-4 py-1 space-y-1 hidden">
+                <a href="{% url 'viewProfile' %}" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">
                     <span>View Profile</span>
                 </a>
                 {% if admin or createNewUser %}
-                <a href="{% url 'createUser' %}" class="cp-sidebar-item">
+                <a href="{% url 'createUser' %}" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">
                     <span>Create New User</span>
                 </a>
                 {% endif %}
                 {% if admin or listUsers %}
-                <a href="{% url 'listUsers' %}" class="cp-sidebar-item">
+                <a href="{% url 'listUsers' %}" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">
                     <span>List Users</span>
                 </a>
                 {% endif %}
-                <a href="{% url 'modifyUsers' %}" class="cp-sidebar-item">
+                <a href="{% url 'modifyUsers' %}" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">
                     <span>Modify User</span>
                 </a>
                 {% if admin or resellerCenter %}
-                <a href="{% url 'resellerCenter' %}" class="cp-sidebar-item">
+                <a href="{% url 'resellerCenter' %}" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">
                     <span>Reseller Center</span>
                 </a>
                 {% endif %}
                 {% if admin %}
-                <a href="{% url 'createNewACL' %}" class="cp-sidebar-item">
+                <a href="{% url 'createNewACL' %}" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">
                     <span>Create New ACL</span>
                 </a>
-                <a href="{% url 'deleteACL' %}" class="cp-sidebar-item">
+                <a href="{% url 'deleteACL' %}" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">
                     <span>Delete ACL</span>
                 </a>
-                <a href="{% url 'modifyACL' %}" class="cp-sidebar-item">
+                <a href="{% url 'modifyACL' %}" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">
                     <span>Modify ACL</span>
                 </a>
-                <a href="{% url 'apiAccess' %}" class="cp-sidebar-item">
+                <a href="{% url 'apiAccess' %}" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">
                     <span>API Access</span>
                 </a>
                 {% endif %}
         </div>
             
-        <a href="#" class="cp-sidebar-item" onclick="toggleSubmenu('wordpress-submenu', this); return false;">
+        <a href="#" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer" onclick="toggleSubmenu('wordpress-submenu', this); return false;">
             <div class="icon">
                 <i class="ti ti-brand-wordpress"></i>
             </div>
@@ -217,382 +232,382 @@
             <span class="badge">NEW</span>
             <i class="ti ti-chevron-right chevron"></i>
         </a>
-        <div id="wordpress-submenu" class="cp-sidebar-submenu">
-                <a href="{% url 'createWordpress' %}" class="cp-sidebar-item">
+        <div id="wordpress-submenu" class=" pl-11 pr-4 py-1 space-y-1 hidden">
+                <a href="{% url 'createWordpress' %}" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">
                     <span>Deploy WordPress</span>
                 </a>
-                <a href="{% url 'ListWPSites' %}" class="cp-sidebar-item">
+                <a href="{% url 'ListWPSites' %}" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">
                     <span>List WordPress</span>
                 </a>
-                <a href="{% url 'ConfigurePlugins' %}" class="cp-sidebar-item">
+                <a href="{% url 'ConfigurePlugins' %}" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">
                     <span>Configure Plugins</span>
                 </a>
-                <a href="{% url 'RestoreBackups' %}" class="cp-sidebar-item">
+                <a href="{% url 'RestoreBackups' %}" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">
                     <span>Restore Backups</span>
                 </a>
-                <a href="{% url 'RemoteBackupConfig' %}" class="cp-sidebar-item">
+                <a href="{% url 'RemoteBackupConfig' %}" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">
                     <span>Remote Backup</span>
                 </a>
             </div>
             
             {% if admin %}
-            <a href="#" class="cp-sidebar-item" onclick="toggleSubmenu('docker-submenu', this); return false;">
+            <a href="#" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer" onclick="toggleSubmenu('docker-submenu', this); return false;">
                 <div class="icon">
                     <i class="ti ti-ship"></i>
                 </div>
                 <span>Docker Apps</span>
                 <i class="ti ti-chevron-right chevron"></i>
             </a>
-            <div id="docker-submenu" class="cp-sidebar-submenu">
-                <a href="{% url 'CreateDockersite' %}" class="cp-sidebar-item">
+            <div id="docker-submenu" class=" pl-11 pr-4 py-1 space-y-1 hidden">
+                <a href="{% url 'CreateDockersite' %}" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">
                     <span>Create Docker Apps</span>
                 </a>
-                <a href="{% url 'ListDockerSites' %}" class="cp-sidebar-item">
+                <a href="{% url 'ListDockerSites' %}" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">
                     <span>List Docker Apps</span>
                 </a>
-                <a href="{% url 'CreateDockerPackage' %}" class="cp-sidebar-item">
+                <a href="{% url 'CreateDockerPackage' %}" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">
                     <span>Docker Packages</span>
                 </a>
-                <a href="{% url 'AssignPackage' %}" class="cp-sidebar-item">
+                <a href="{% url 'AssignPackage' %}" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">
                     <span>Assign Package</span>
                 </a>
             </div>
             {% endif %}
             
-            <a href="#" class="cp-sidebar-item" onclick="toggleSubmenu('websites-submenu', this); return false;">
+            <a href="#" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer" onclick="toggleSubmenu('websites-submenu', this); return false;">
                 <div class="icon">
                     <i class="ti ti-world"></i>
                 </div>
                 <span>Websites</span>
                 <i class="ti ti-chevron-right chevron"></i>
             </a>
-            <div id="websites-submenu" class="cp-sidebar-submenu">
+            <div id="websites-submenu" class=" pl-11 pr-4 py-1 space-y-1 hidden">
                 {% if admin or createWebsite %}
-                <a href="{% url 'createWebsite' %}" class="cp-sidebar-item">
+                <a href="{% url 'createWebsite' %}" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">
                     <span>Create Website</span>
                 </a>
                 {% endif %}
-                <a href="{% url 'listWebsites' %}" class="cp-sidebar-item">
+                <a href="{% url 'listWebsites' %}" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">
                     <span>List Websites</span>
                 </a>
-                <a href="{% url 'CreateNewDomain' %}" class="cp-sidebar-item">
+                <a href="{% url 'CreateNewDomain' %}" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">
                     <span>Create Sub/Addon Domain</span>
                 </a>
-                <a href="{% url 'listChildDomains' %}" class="cp-sidebar-item">
+                <a href="{% url 'listChildDomains' %}" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">
                     <span>List Sub/Addon Domains</span>
                 </a>
                 {% if admin or modifyWebsite %}
-                <a href="{% url 'modifyWebsite' %}" class="cp-sidebar-item">
+                <a href="{% url 'modifyWebsite' %}" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">
                     <span>Modify Website</span>
                 </a>
                 {% endif %}
                 {% if admin or suspendWebsite %}
-                <a href="{% url 'siteState' %}" class="cp-sidebar-item">
+                <a href="{% url 'siteState' %}" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">
                     <span>Suspend/Unsuspend</span>
                 </a>
                 {% endif %}
                 {% if admin or deleteWebsite %}
-                <a href="{% url 'deleteWebsite' %}" class="cp-sidebar-item">
+                <a href="{% url 'deleteWebsite' %}" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">
                     <span>Delete Website</span>
                 </a>
                 {% endif %}
             </div>
             
-            <a href="#" class="cp-sidebar-item" onclick="toggleSubmenu('packages-submenu', this); return false;">
+            <a href="#" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer" onclick="toggleSubmenu('packages-submenu', this); return false;">
                 <div class="icon">
                     <i class="ti ti-box"></i>
                 </div>
                 <span>Packages</span>
                 <i class="ti ti-chevron-right chevron"></i>
             </a>
-            <div id="packages-submenu" class="cp-sidebar-submenu">
+            <div id="packages-submenu" class=" pl-11 pr-4 py-1 space-y-1 hidden">
                 {% if admin or createPackage %}
-                <a href="{% url 'createPackage' %}" class="cp-sidebar-item">
+                <a href="{% url 'createPackage' %}" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">
                     <span>Create Package</span>
                 </a>
                 {% endif %}
                 {% if admin or listPackages %}
-                <a href="{% url 'listPackages' %}" class="cp-sidebar-item">
+                <a href="{% url 'listPackages' %}" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">
                     <span>List Packages</span>
                 </a>
                 {% endif %}
                 {% if admin or deletePackage %}
-                <a href="{% url 'deletePackage' %}" class="cp-sidebar-item">
+                <a href="{% url 'deletePackage' %}" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">
                     <span>Delete Package</span>
                 </a>
                 {% endif %}
                 {% if admin or modifyPackage %}
-                <a href="{% url 'modifyPackage' %}" class="cp-sidebar-item">
+                <a href="{% url 'modifyPackage' %}" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">
                     <span>Modify Package</span>
                 </a>
                 {% endif %}
             </div>
             
-            <a href="#" class="cp-sidebar-item" onclick="toggleSubmenu('databases-submenu', this); return false;">
+            <a href="#" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer" onclick="toggleSubmenu('databases-submenu', this); return false;">
                 <div class="icon">
                     <i class="ti ti-database"></i>
                 </div>
                 <span>Databases</span>
                 <i class="ti ti-chevron-right chevron"></i>
             </a>
-            <div id="databases-submenu" class="cp-sidebar-submenu">
+            <div id="databases-submenu" class=" pl-11 pr-4 py-1 space-y-1 hidden">
                 {% if admin or createDatabase %}
-                <a href="{% url 'createDatabase' %}" class="cp-sidebar-item">
+                <a href="{% url 'createDatabase' %}" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">
                     <span>Create Database</span>
                 </a>
                 {% endif %}
                 {% if admin or deleteDatabase %}
-                <a href="{% url 'deleteDatabase' %}" class="cp-sidebar-item">
+                <a href="{% url 'deleteDatabase' %}" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">
                     <span>Delete Database</span>
                 </a>
                 {% endif %}
                 {% if admin or listDatabases %}
-                <a href="{% url 'listDBs' %}" class="cp-sidebar-item">
+                <a href="{% url 'listDBs' %}" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">
                     <span>List Databases</span>
                 </a>
                 {% endif %}
                 {% if admin or createDatabase %}
-                <a href="{% url 'phpMyAdmin' %}" class="cp-sidebar-item" target="_blank" rel="noopener">
+                <a href="{% url 'phpMyAdmin' %}" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer" target="_blank" rel="noopener">
                     <span>PHPMYAdmin</span>
                 </a>
                 {% endif %}
             </div>
             
-            <a href="#" class="cp-sidebar-item" onclick="toggleSubmenu('dns-submenu', this); return false;">
+            <a href="#" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer" onclick="toggleSubmenu('dns-submenu', this); return false;">
                 <div class="icon">
                     <i class="ti ti-sitemap"></i>
                 </div>
                 <span>DNS</span>
                 <i class="ti ti-chevron-right chevron"></i>
             </a>
-            <div id="dns-submenu" class="cp-sidebar-submenu">
+            <div id="dns-submenu" class=" pl-11 pr-4 py-1 space-y-1 hidden">
                 {% if admin or createNameServer %}
-                <a href="{% url 'createNameserver' %}" class="cp-sidebar-item">
+                <a href="{% url 'createNameserver' %}" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">
                     <span>Create Nameserver</span>
                 </a>
                 {% endif %}
                 {% if admin %}
-                <a href="{% url 'configureDefaultNameServers' %}" class="cp-sidebar-item">
+                <a href="{% url 'configureDefaultNameServers' %}" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">
                     <span>Config Default Nameservers</span>
                 </a>
                 {% endif %}
                 {% if admin or createDNSZone %}
-                <a href="{% url 'createDNSZone' %}" class="cp-sidebar-item">
+                <a href="{% url 'createDNSZone' %}" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">
                     <span>Create DNS Zone</span>
                 </a>
                 {% endif %}
                 {% if admin or deleteZone %}
-                <a href="{% url 'deleteDNSZone' %}" class="cp-sidebar-item">
+                <a href="{% url 'deleteDNSZone' %}" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">
                     <span>Delete Zone</span>
                 </a>
                 {% endif %}
                 {% if admin or addDeleteRecords %}
-                <a href="{% url 'addDeleteDNSRecords' %}" class="cp-sidebar-item">
+                <a href="{% url 'addDeleteDNSRecords' %}" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">
                     <span>Add/Delete Records</span>
                 </a>
                 {% endif %}
                 {% if admin or addDeleteRecords %}
-                <a href="{% url 'addDeleteDNSRecordsCloudFlare' %}" class="cp-sidebar-item">
+                <a href="{% url 'addDeleteDNSRecordsCloudFlare' %}" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">
                     <span>CloudFlare</span>
                 </a>
                 {% endif %}
                 {% if admin or addDeleteRecords %}
-                <a href="{% url 'ResetDNSConfigurations' %}" class="cp-sidebar-item">
+                <a href="{% url 'ResetDNSConfigurations' %}" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">
                     <span>Reset DNS Configurations</span>
                 </a>
                 {% endif %}
             </div>
             
-            <a href="#" class="cp-sidebar-item" onclick="toggleSubmenu('email-submenu', this); return false;">
+            <a href="#" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer" onclick="toggleSubmenu('email-submenu', this); return false;">
                 <div class="icon">
                     <i class="ti ti-mail"></i>
                 </div>
                 <span>Email</span>
                 <i class="ti ti-chevron-right chevron"></i>
             </a>
-            <div id="email-submenu" class="cp-sidebar-submenu">
+            <div id="email-submenu" class=" pl-11 pr-4 py-1 space-y-1 hidden">
                 {% if admin or createEmail %}
-                <a href="{% url 'createEmailAccount' %}" class="cp-sidebar-item">
+                <a href="{% url 'createEmailAccount' %}" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">
                     <span>Create Email</span>
                 </a>
                 {% endif %}
                 {% if admin or listEmails %}
-                <a href="{% url 'listEmails' %}" class="cp-sidebar-item">
+                <a href="{% url 'listEmails' %}" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">
                     <span>List Emails</span>
                 </a>
                 {% endif %}
                 {% if admin or deleteEmail %}
-                <a href="{% url 'deleteEmailAccount' %}" class="cp-sidebar-item">
+                <a href="{% url 'deleteEmailAccount' %}" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">
                     <span>Delete Email</span>
                 </a>
                 {% endif %}
                 {% if admin or emailForwarding %}
-                <a href="{% url 'EmailLimits' %}" class="cp-sidebar-item">
+                <a href="{% url 'EmailLimits' %}" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">
                     <span>Email Limits</span>
                 </a>
                 {% endif %}
                 {% if admin or emailForwarding %}
-                <a href="{% url 'emailForwarding' %}" class="cp-sidebar-item">
+                <a href="{% url 'emailForwarding' %}" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">
                     <span>Email Forwarding</span>
                 </a>
                 {% endif %}
                 {% if admin or emailForwarding %}
-                <a href="{% url 'catchAllEmail' %}" class="cp-sidebar-item">
+                <a href="{% url 'catchAllEmail' %}" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">
                     <span>Catch-All Email</span>
                 </a>
                 {% endif %}
                 {% if admin or emailForwarding %}
-                <a href="{% url 'patternForwarding' %}" class="cp-sidebar-item">
+                <a href="{% url 'patternForwarding' %}" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">
                     <span>Pattern Forwarding</span>
                 </a>
                 {% endif %}
                 {% if admin %}
-                <a href="{% url 'plusAddressingSettings' %}" class="cp-sidebar-item">
+                <a href="{% url 'plusAddressingSettings' %}" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">
                     <span>Plus-Addressing</span>
                 </a>
                 {% endif %}
                 {% if admin or changeEmailPassword %}
-                <a href="{% url 'changeEmailAccountPassword' %}" class="cp-sidebar-item">
+                <a href="{% url 'changeEmailAccountPassword' %}" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">
                     <span>Change Password</span>
                 </a>
                 {% endif %}
                 {% if admin or dkimManager %}
-                <a href="{% url 'dkimManager' %}" class="cp-sidebar-item">
+                <a href="{% url 'dkimManager' %}" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">
                     <span>DKIM Manager</span>
                 </a>
                 {% endif %}
                 {% if admin or createEmail %}
-                <a href="/webmail/" class="cp-sidebar-item">
+                <a href="/webmail/" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">
                     <span>Access Webmail</span>
                 </a>
                 {% endif %}
             </div>
             
-            <a href="#" class="cp-sidebar-item" onclick="toggleSubmenu('ftp-submenu', this); return false;">
+            <a href="#" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer" onclick="toggleSubmenu('ftp-submenu', this); return false;">
                 <div class="icon">
                     <i class="ti ti-folder"></i>
                 </div>
                 <span>FTP</span>
                 <i class="ti ti-chevron-right chevron"></i>
             </a>
-            <div id="ftp-submenu" class="cp-sidebar-submenu">
+            <div id="ftp-submenu" class=" pl-11 pr-4 py-1 space-y-1 hidden">
                 {% if admin or createFTPAccount %}
-                <a href="{% url 'createFTPAccount' %}" class="cp-sidebar-item">
+                <a href="{% url 'createFTPAccount' %}" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">
                     <span>Create FTP Account</span>
                 </a>
                 {% endif %}
                 {% if admin or deleteFTPAccount %}
-                <a href="{% url 'deleteFTPAccount' %}" class="cp-sidebar-item delete">
+                <a href="{% url 'deleteFTPAccount' %}" class=" delete flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">
                     <span>Delete FTP Account</span>
                 </a>
                 {% endif %}
                 {% if admin or listFTPAccounts %}
-                <a href="{% url 'listFTPAccounts' %}" class="cp-sidebar-item">
+                <a href="{% url 'listFTPAccounts' %}" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">
                     <span>List FTP Accounts</span>
                 </a>
                 {% endif %}
                 {% if admin or listFTPAccounts %}
-                <a href="{% url 'ResetFTPConfigurations' %}" class="cp-sidebar-item">
+                <a href="{% url 'ResetFTPConfigurations' %}" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">
                     <span>Reset FTP Configurations</span>
                 </a>
                 {% endif %}
             </div>
             
-            <a href="#" class="cp-sidebar-item" onclick="toggleSubmenu('backup-submenu', this); return false;">
+            <a href="#" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer" onclick="toggleSubmenu('backup-submenu', this); return false;">
                 <div class="icon">
                     <i class="ti ti-device-floppy"></i>
                 </div>
                 <span>Backup</span>
                 <i class="ti ti-chevron-right chevron"></i>
             </a>
-            <div id="backup-submenu" class="cp-sidebar-submenu">
+            <div id="backup-submenu" class=" pl-11 pr-4 py-1 space-y-1 hidden">
                 {% if admin or createBackup %}
-                <a href="{% url 'OneClickBackups' %}" class="cp-sidebar-item">
+                <a href="{% url 'OneClickBackups' %}" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">
                     <span>One-Click Backups</span>
                 </a>
                 {% endif %}
                 {% if admin or createBackup %}
-                <a href="{% url 'backupSite' %}" class="cp-sidebar-item">
+                <a href="{% url 'backupSite' %}" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">
                     <span>Create Backup</span>
                 </a>
                 {% endif %}
                 {% if admin or restoreBackup %}
-                <a href="{% url 'restoreSite' %}" class="cp-sidebar-item">
+                <a href="{% url 'restoreSite' %}" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">
                     <span>Restore Backup</span>
                 </a>
                 {% endif %}
                 {% if admin or addDeleteDestinations %}
-                <a href="{% url 'backupDestinations' %}" class="cp-sidebar-item">
+                <a href="{% url 'backupDestinations' %}" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">
                     <span>Add/Delete Destination</span>
                 </a>
                 {% endif %}
                 {% if admin or scheduleBackups %}
-                <a href="{% url 'scheduleBackup' %}" class="cp-sidebar-item">
+                <a href="{% url 'scheduleBackup' %}" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">
                     <span>Schedule Backup</span>
                 </a>
                 {% endif %}
                 {% if admin or googleDriveBackups %}
-                <a href="{% url 'gDrive' %}" class="cp-sidebar-item">
+                <a href="{% url 'gDrive' %}" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">
                     <span>Setup Google Drive</span>
                 </a>
                 {% endif %}
                 {% if admin or remoteBackups %}
-                <a href="{% url 'remoteBackups' %}" class="cp-sidebar-item">
+                <a href="{% url 'remoteBackups' %}" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">
                     <span>Remote Backups</span>
                 </a>
                 {% endif %}
         </div>
             
-        <a href="#" class="cp-sidebar-item" onclick="toggleSubmenu('incremental-backup-submenu', this); return false;">
+        <a href="#" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer" onclick="toggleSubmenu('incremental-backup-submenu', this); return false;">
             <div class="icon">
                 <i class="ti ti-device-floppy"></i>
             </div>
             <span>Incremental Backup</span>
             <i class="ti ti-chevron-right chevron"></i>
         </a>
-        <div id="incremental-backup-submenu" class="cp-sidebar-submenu">
+        <div id="incremental-backup-submenu" class=" pl-11 pr-4 py-1 space-y-1 hidden">
             {% if admin or createBackup %}
-            <a href="{% url 'backupDestinationsInc' %}" class="cp-sidebar-item">
+            <a href="{% url 'backupDestinationsInc' %}" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">
                 <span>Backups v2</span>
             </a>
-            <a href="{% url 'createBackupInc' %}" class="cp-sidebar-item">
+            <a href="{% url 'createBackupInc' %}" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">
                 <span>v1 (Deprecated)</span>
             </a>
             {% endif %}
         </div>
             
-        <a href="#" class="cp-sidebar-item" onclick="toggleSubmenu('ssl-submenu', this); return false;">
+        <a href="#" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer" onclick="toggleSubmenu('ssl-submenu', this); return false;">
             <div class="icon">
                 <i class="ti ti-lock"></i>
             </div>
             <span>SSL</span>
             <i class="ti ti-chevron-right chevron"></i>
         </a>
-        <div id="ssl-submenu" class="cp-sidebar-submenu">
+        <div id="ssl-submenu" class=" pl-11 pr-4 py-1 space-y-1 hidden">
             {% if admin or manageSSL %}
-            <a href="{% url 'v2ManageSSL' %}" class="cp-sidebar-item">
+            <a href="{% url 'v2ManageSSL' %}" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">
                 <span>Manage SSL v2</span>
             </a>
-            <a href="{% url 'manageSSL' %}" class="cp-sidebar-item">
+            <a href="{% url 'manageSSL' %}" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">
                 <span>Manage SSL</span>
             </a>
             {% endif %}
             {% if admin or hostnameSSL %}
-            <a href="{% url 'sslForHostName' %}" class="cp-sidebar-item">
+            <a href="{% url 'sslForHostName' %}" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">
                 <span>Hostname SSL</span>
             </a>
             {% endif %}
             {% if admin or mailServerSSL %}
-            <a href="{% url 'sslForMailServer' %}" class="cp-sidebar-item">
+            <a href="{% url 'sslForMailServer' %}" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">
                 <span>MailServer SSL</span>
             </a>
             {% endif %}
         </div>
         
         {% if admin %}
-        <div class="cp-sidebar-section-label">SERVER</div>
+        <div class="text-[11px] font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wider mt-6 mb-2 px-6">SERVER</div>
             
-        <a href="{% url 'MysqlManager' %}" class="cp-sidebar-item">
+        <a href="{% url 'MysqlManager' %}" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">
             <div class="icon">
                 <i class="ti ti-database"></i>
             </div>
@@ -600,14 +615,14 @@
             <span class="badge">NEW</span>
         </a>
             
-        <a href="{% url 'Filemanager' %}" class="cp-sidebar-item">
+        <a href="{% url 'Filemanager' %}" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">
             <div class="icon">
                 <i class="ti ti-folder-open"></i>
             </div>
             <span>Root File Manager</span>
         </a>
             
-            <a href="#" class="cp-sidebar-item" onclick="toggleSubmenu('cloudlinux-submenu', this); return false;">
+            <a href="#" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer" onclick="toggleSubmenu('cloudlinux-submenu', this); return false;">
                 <div class="icon">
                     <i class="ti ti-flame"></i>
                 </div>
@@ -615,165 +630,165 @@
                 <span class="badge">NEW</span>
                 <i class="ti ti-chevron-right chevron"></i>
             </a>
-            <div id="cloudlinux-submenu" class="cp-sidebar-submenu">
-                <a href="{% url 'CreatePackageCL' %}" class="cp-sidebar-item">
+            <div id="cloudlinux-submenu" class=" pl-11 pr-4 py-1 space-y-1 hidden">
+                <a href="{% url 'CreatePackageCL' %}" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">
                     <span>Create Package</span>
                 </a>
-                <a href="{% url 'listPackagesCL' %}" class="cp-sidebar-item">
+                <a href="{% url 'listPackagesCL' %}" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">
                     <span>List Packages</span>
                 </a>
-                <a href="{% url 'monitorUsage' %}" class="cp-sidebar-item">
+                <a href="{% url 'monitorUsage' %}" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">
                     <span>Monitor Usage</span>
                 </a>
-                <a href="{% url 'CageFS' %}" class="cp-sidebar-item">
+                <a href="{% url 'CageFS' %}" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">
                     <span>CageFS</span>
                 </a>
             </div>
             
-            <a href="#" class="cp-sidebar-item" onclick="toggleSubmenu('docker-manager-submenu', this); return false;">
+            <a href="#" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer" onclick="toggleSubmenu('docker-manager-submenu', this); return false;">
                 <div class="icon">
                     <i class="ti ti-settings"></i>
                 </div>
                 <span>Docker Manager</span>
                 <i class="ti ti-chevron-right chevron"></i>
             </a>
-            <div id="docker-manager-submenu" class="cp-sidebar-submenu">
-                <a href="{% url 'manageImages' %}" class="cp-sidebar-item">
+            <div id="docker-manager-submenu" class=" pl-11 pr-4 py-1 space-y-1 hidden">
+                <a href="{% url 'manageImages' %}" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">
                     <span>Manage Images</span>
                 </a>
-                <a href="{% url 'listContainers' %}" class="cp-sidebar-item">
+                <a href="{% url 'listContainers' %}" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">
                     <span>Manage Containers</span>
                 </a>
-                <a href="{% url 'containerImage' %}" class="cp-sidebar-item">
+                <a href="{% url 'containerImage' %}" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">
                     <span>Create New Container</span>
                 </a>
             </div>
             
-            <a href="#" class="cp-sidebar-item" onclick="toggleSubmenu('tuning-submenu', this); return false;">
+            <a href="#" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer" onclick="toggleSubmenu('tuning-submenu', this); return false;">
                 <div class="icon">
                     <i class="ti ti-adjustments"></i>
                 </div>
                 <span>Tuning</span>
                 <i class="ti ti-chevron-right chevron"></i>
             </a>
-            <div id="tuning-submenu" class="cp-sidebar-submenu">
-                <a href="{% url 'liteSpeedTuning' %}" class="cp-sidebar-item">
+            <div id="tuning-submenu" class=" pl-11 pr-4 py-1 space-y-1 hidden">
+                <a href="{% url 'liteSpeedTuning' %}" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">
                     <span>LiteSpeed Tuning</span>
                 </a>
                 {% if serverCheck == 1 %}
-                <a href="{% url 'litespeed_ent_conf' %}" class="cp-sidebar-item">
+                <a href="{% url 'litespeed_ent_conf' %}" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">
                     <span>LiteSpeed Ent Global Conf</span>
                 </a>
                 {% endif %}
-                <a href="{% url 'phpTuning' %}" class="cp-sidebar-item">
+                <a href="{% url 'phpTuning' %}" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">
                     <span>PHP Tuning</span>
                 </a>
             </div>
             
-            <a href="#" class="cp-sidebar-item" onclick="toggleSubmenu('server-status-submenu', this); return false;">
+            <a href="#" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer" onclick="toggleSubmenu('server-status-submenu', this); return false;">
                 <div class="icon">
                     <i class="ti ti-settings"></i>
                 </div>
                 <span>Server Status</span>
                 <i class="ti ti-chevron-right chevron"></i>
             </a>
-            <div id="server-status-submenu" class="cp-sidebar-submenu">
-                <a href="{% url 'topProcesses' %}" class="cp-sidebar-item">
+            <div id="server-status-submenu" class=" pl-11 pr-4 py-1 space-y-1 hidden">
+                <a href="{% url 'topProcesses' %}" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">
                     <span>Top Processes</span>
                 </a>
-                <a href="{% url 'litespeedStatus' %}" class="cp-sidebar-item">
+                <a href="{% url 'litespeedStatus' %}" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">
                     <span>LiteSpeed Status</span>
                 </a>
-                <a href="{% url 'CyberPanelPort' %}" class="cp-sidebar-item">
+                <a href="{% url 'CyberPanelPort' %}" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">
                     <span>Change Port</span>
                 </a>
-                <a href="{% url 'packageManager' %}" class="cp-sidebar-item">
+                <a href="{% url 'packageManager' %}" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">
                     <span>Package Manager</span>
                 </a>
             </div>
             
-            <a href="#" class="cp-sidebar-item" onclick="toggleSubmenu('php-submenu', this); return false;">
+            <a href="#" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer" onclick="toggleSubmenu('php-submenu', this); return false;">
                 <div class="icon">
                     <i class="ti ti-code"></i>
                 </div>
                 <span>PHP</span>
                 <i class="ti ti-chevron-right chevron"></i>
             </a>
-            <div id="php-submenu" class="cp-sidebar-submenu">
-                <a href="{% url 'installExtensions' %}" class="cp-sidebar-item">
+            <div id="php-submenu" class=" pl-11 pr-4 py-1 space-y-1 hidden">
+                <a href="{% url 'installExtensions' %}" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">
                     <span>Install Extensions</span>
                 </a>
-                <a href="{% url 'editPHPConfigs' %}" class="cp-sidebar-item">
+                <a href="{% url 'editPHPConfigs' %}" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">
                     <span>Edit PHP Configs</span>
                 </a>
             </div>
             
-            <a href="#" class="cp-sidebar-item" onclick="toggleSubmenu('logs-submenu', this); return false;">
+            <a href="#" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer" onclick="toggleSubmenu('logs-submenu', this); return false;">
                 <div class="icon">
                     <i class="ti ti-file"></i>
                 </div>
                 <span>Logs</span>
                 <i class="ti ti-chevron-right chevron"></i>
             </a>
-            <div id="logs-submenu" class="cp-sidebar-submenu">
-                <a href="{% url 'serverMail' %}" class="cp-sidebar-item">
+            <div id="logs-submenu" class=" pl-11 pr-4 py-1 space-y-1 hidden">
+                <a href="{% url 'serverMail' %}" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">
                     <span>Server Mail</span>
                 </a>
-                <a href="{% url 'cyberCPMainLogFile' %}" class="cp-sidebar-item">
+                <a href="{% url 'cyberCPMainLogFile' %}" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">
                     <span>CyberPanel Main Log File</span>
                 </a>
-                <a href="{% url 'accessLogs' %}" class="cp-sidebar-item">
+                <a href="{% url 'accessLogs' %}" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">
                     <span>Access Log</span>
                 </a>
-                <a href="{% url 'errorLogs' %}" class="cp-sidebar-item">
+                <a href="{% url 'errorLogs' %}" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">
                     <span>Error Logs</span>
                 </a>
-                <a href="{% url 'emaillogs' %}" class="cp-sidebar-item">
+                <a href="{% url 'emaillogs' %}" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">
                     <span>Email Log</span>
                 </a>
-                <a href="{% url 'ftplogs' %}" class="cp-sidebar-item">
+                <a href="{% url 'ftplogs' %}" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">
                     <span>FTP Logs</span>
                 </a>
-                <a href="{% url 'modSecAuditLogs' %}" class="cp-sidebar-item">
+                <a href="{% url 'modSecAuditLogs' %}" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">
                     <span>ModSec Audit Logs</span>
                 </a>
             </div>
             
-            <a href="#" class="cp-sidebar-item" onclick="toggleSubmenu('security-submenu', this); return false;">
+            <a href="#" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer" onclick="toggleSubmenu('security-submenu', this); return false;">
                 <div class="icon">
                     <i class="ti ti-shield"></i>
                 </div>
                 <span>Security</span>
                 <i class="ti ti-chevron-right chevron"></i>
             </a>
-            <div id="security-submenu" class="cp-sidebar-submenu">
-                <a href="{% url 'firewallHome' %}" class="cp-sidebar-item">
+            <div id="security-submenu" class=" pl-11 pr-4 py-1 space-y-1 hidden">
+                <a href="{% url 'firewallHome' %}" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">
                     <span>Firewall</span>
                 </a>
-                <a href="{% url 'secureSSH' %}" class="cp-sidebar-item">
+                <a href="{% url 'secureSSH' %}" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">
                     <span>Secure SSH</span>
                 </a>
-                <a href="{% url 'modSecurity' %}" class="cp-sidebar-item">
+                <a href="{% url 'modSecurity' %}" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">
                     <span>ModSecurity Conf</span>
                 </a>
-                <a href="{% url 'modSecRules' %}" class="cp-sidebar-item">
+                <a href="{% url 'modSecRules' %}" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">
                     <span>ModSecurity Rules</span>
                 </a>
-                <a href="{% url 'modSecRulesPacks' %}" class="cp-sidebar-item">
+                <a href="{% url 'modSecRulesPacks' %}" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">
                     <span>ModSecurity Rules Packs</span>
                 </a>
-                <a href="{% url 'imunify' %}" class="cp-sidebar-item">
+                <a href="{% url 'imunify' %}" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">
                     <span>Imunify 360</span>
                 </a>
-                <a href="{% url 'imunifyAV' %}" class="cp-sidebar-item">
+                <a href="{% url 'imunifyAV' %}" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">
                     <span>ImunifyAV</span>
                 </a>
-                <a href="{% url 'aiScannerHome' %}" class="cp-sidebar-item">
+                <a href="{% url 'aiScannerHome' %}" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">
                     <span>AI Scanner</span>
                 </a>
             </div>
             
-            <a href="#" class="cp-sidebar-item" onclick="toggleSubmenu('mail-settings-submenu', this); return false;">
+            <a href="#" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer" onclick="toggleSubmenu('mail-settings-submenu', this); return false;">
                 <div class="icon">
                     <i class="ti ti-mail"></i>
                 </div>
@@ -781,65 +796,65 @@
                 <span class="badge">NEW</span>
                 <i class="ti ti-chevron-right chevron"></i>
             </a>
-            <div id="mail-settings-submenu" class="cp-sidebar-submenu">
-                <a href="{% url 'EmailDebugger' %}" class="cp-sidebar-item">
+            <div id="mail-settings-submenu" class=" pl-11 pr-4 py-1 space-y-1 hidden">
+                <a href="{% url 'EmailDebugger' %}" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">
                     <span>Email Debugger</span>
                 </a>
-                <a href="{% url 'mailQueue' %}" class="cp-sidebar-item">
+                <a href="{% url 'mailQueue' %}" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">
                     <span>Mail Queue</span>
                 </a>
-                <a href="{% url 'SpamAssassin' %}" class="cp-sidebar-item">
+                <a href="{% url 'SpamAssassin' %}" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">
                     <span>SpamAssassin</span>
                 </a>
-                <a href="{% url 'emailMarketing' %}" class="cp-sidebar-item">
+                <a href="{% url 'emailMarketing' %}" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">
                     <span>Email Marketing</span>
                 </a>
-                <a href="{% url 'MailScanner' %}" class="cp-sidebar-item">
+                <a href="{% url 'MailScanner' %}" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">
                     <span>MailScanner</span>
                 </a>
-                <a href="{% url 'Rspamd' %}" class="cp-sidebar-item">
+                <a href="{% url 'Rspamd' %}" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">
                     <span>RSPAMD</span>
                 </a>
-                <a href="{% url 'emailDeliveryHome' %}" class="cp-sidebar-item">
+                <a href="{% url 'emailDeliveryHome' %}" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">
                     <span>Email Delivery</span>
                     <span class="badge">NEW</span>
                 </a>
             </div>
 
-            <a href="#" class="cp-sidebar-item" onclick="toggleSubmenu('manage-services-submenu', this); return false;">
+            <a href="#" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer" onclick="toggleSubmenu('manage-services-submenu', this); return false;">
                 <div class="icon">
                     <i class="ti ti-folder-open"></i>
                 </div>
                 <span>Manage Services</span>
                 <i class="ti ti-chevron-right chevron"></i>
             </a>
-            <div id="manage-services-submenu" class="cp-sidebar-submenu">
-                <a href="{% url 'manageApplications' %}" class="cp-sidebar-item">
+            <div id="manage-services-submenu" class=" pl-11 pr-4 py-1 space-y-1 hidden">
+                <a href="{% url 'manageApplications' %}" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">
                     <span>Applications</span>
                 </a>
-                <a href="{% url 'services' %}" class="cp-sidebar-item">
+                <a href="{% url 'services' %}" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">
                     <span>Services Status</span>
                 </a>
-                <a href="{% url 'managePowerDNS' %}" class="cp-sidebar-item">
+                <a href="{% url 'managePowerDNS' %}" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">
                     <span>Manage PowerDNS</span>
                 </a>
-                <a href="{% url 'managePostfix' %}" class="cp-sidebar-item">
+                <a href="{% url 'managePostfix' %}" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">
                     <span>Manage Postfix</span>
                 </a>
-                <a href="{% url 'managePureFtpd' %}" class="cp-sidebar-item">
+                <a href="{% url 'managePureFtpd' %}" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">
                     <span>Manage FTP</span>
                 </a>
             </div>
             
-            <a href="#" class="cp-sidebar-item" onclick="toggleSubmenu('plugins-submenu', this); return false;">
+            <a href="#" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer" onclick="toggleSubmenu('plugins-submenu', this); return false;">
                 <div class="icon">
                     <i class="ti ti-plug"></i>
                 </div>
                 <span>Plugins</span>
                 <i class="ti ti-chevron-right chevron"></i>
             </a>
-            <div id="plugins-submenu" class="cp-sidebar-submenu">
-                <a href="{% url 'installed' %}" class="cp-sidebar-item">
+            <div id="plugins-submenu" class=" pl-11 pr-4 py-1 space-y-1 hidden">
+                <a href="{% url 'installed' %}" class=" flex items-center gap-3 px-4 py-2.5 mx-3 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">
                     <span>Installed</span>
                 </a>
         </div>
@@ -911,7 +926,7 @@
     </div>
 
     <!-- Main Content -->
-    <div id="main-content" class="cp-main-content">
+    <div id="main-content" class="flex-1 overflow-y-auto p-6 md:p-8">
         {% block content %}{% endblock %}
     </div>
     
@@ -1162,7 +1177,13 @@
                     const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
                     
                     // Update theme
-                    document.documentElement.setAttribute('data-theme', newTheme);
+                    
+        if (newTheme === 'dark') {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+        
                     localStorage.setItem('cyberPanelTheme', newTheme);
                     
                     // Update icon

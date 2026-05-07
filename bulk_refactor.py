@@ -48,18 +48,18 @@ def bulk_refactor(directory):
                     for old, new in icon_map.items():
                         content = content.replace(f'ti-{old[3:]}', new)
 
-                    # 3. Replace common Bootstrap classes with new Design System classes
-                    content = content.replace('class="btn btn-primary"', 'class="cp-btn cp-btn-primary"')
-                    content = content.replace('class="btn btn-danger"', 'class="cp-btn cp-btn-danger"')
-                    content = content.replace('class="btn btn-success"', 'class="cp-btn cp-btn-primary"')
-                    content = content.replace('class="btn btn-info"', 'class="cp-btn cp-btn-secondary"')
-                    content = content.replace('class="btn btn-default"', 'class="cp-btn cp-btn-secondary"')
+                    # 3. Replace common Bootstrap classes with new Tailwind classes
+                    content = content.replace('class="btn btn-primary"', 'class="h-9 px-4 inline-flex items-center gap-2 bg-gray-900 text-white dark:bg-white dark:text-gray-900 text-sm font-medium rounded-lg hover:opacity-90 transition-opacity"')
+                    content = content.replace('class="btn btn-danger"', 'class="h-9 px-4 inline-flex items-center gap-2 bg-red-600 text-white text-sm font-medium rounded-lg hover:bg-red-700 transition-colors"')
+                    content = content.replace('class="btn btn-success"', 'class="h-9 px-4 inline-flex items-center gap-2 bg-green-600 text-white text-sm font-medium rounded-lg hover:bg-green-700 transition-colors"')
+                    content = content.replace('class="btn btn-info"', 'class="h-9 px-4 inline-flex items-center gap-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition-colors"')
+                    content = content.replace('class="btn btn-default"', 'class="h-9 px-4 inline-flex items-center gap-2 bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300 text-sm font-medium rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"')
                     
-                    content = content.replace('class="form-control"', 'class="cp-input"')
-                    content = content.replace('class="table"', 'class="cp-table"')
-                    content = content.replace('class="table table-striped"', 'class="cp-table"')
-                    content = content.replace('class="table table-bordered"', 'class="cp-table"')
-                    content = content.replace('class="card"', 'class="cp-card"')
+                    content = content.replace('class="form-control"', 'class="w-full h-10 px-3 bg-white dark:bg-[#1a1a1a] border border-gray-200 dark:border-gray-800 rounded-lg text-sm text-gray-900 dark:text-white focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors"')
+                    content = content.replace('class="table"', 'class="w-full text-left text-sm text-gray-600 dark:text-gray-400 border-collapse"')
+                    content = content.replace('class="table table-striped"', 'class="w-full text-left text-sm text-gray-600 dark:text-gray-400 border-collapse"')
+                    content = content.replace('class="table table-bordered"', 'class="w-full text-left text-sm text-gray-600 dark:text-gray-400 border-collapse border border-gray-200 dark:border-gray-800"')
+                    content = content.replace('class="card"', 'class="bg-white dark:bg-[#111111] rounded-2xl border border-gray-200 dark:border-gray-800 shadow-sm overflow-hidden"')
 
                     if content != original_content:
                         with open(path, 'w', encoding='utf-8') as f:
